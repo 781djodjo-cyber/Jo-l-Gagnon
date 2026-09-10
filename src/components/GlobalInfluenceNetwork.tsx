@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Network, Info, Search, X, AlertOctagon } from 'lucide-react';
 import { InterestLink, InvestigationReport, SavedDossier } from '../types';
 import { PRELOADED_DOSSIERS } from '../data/preloadedDossiers';
+import { CorruptionTimeline } from './CorruptionTimeline';
 
 type RiskLevel = InterestLink['riskLevel'];
 
@@ -78,6 +79,7 @@ export const GlobalInfluenceNetwork: React.FC<GlobalInfluenceNetworkProps> = ({
   const [hoverEdge, setHoverEdge] = useState<number | null>(null);
   const [clusterFilter, setClusterFilter] = useState<string>('Tous');
   const [query, setQuery] = useState('');
+  const [viewMode, setViewMode] = useState<'network' | 'timeline'>('network');
 
   // Every report we can map: the emblematic dossiers plus anything the
   // citizen has investigated this session.
