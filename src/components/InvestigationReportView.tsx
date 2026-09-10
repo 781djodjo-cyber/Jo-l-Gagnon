@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { InvestigationReport, InvestigationAlertLevel } from '../types';
 import { InfluenceNetworkGraph } from './InfluenceNetworkGraph';
+import { ShareReportMenu } from './ShareReportMenu';
 
 interface InvestigationReportViewProps {
   report: InvestigationReport;
@@ -159,6 +160,8 @@ Document généré par Transparence Québec - Vigie de l'intégrité et de la d�
             <Printer className="w-3.5 h-3.5" />
             <span>Imprimer</span>
           </button>
+
+          <ShareReportMenu report={report} />
         </div>
       </div>
 
