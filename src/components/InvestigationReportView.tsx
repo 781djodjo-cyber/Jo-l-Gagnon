@@ -22,6 +22,7 @@ import {
   HelpCircle
 } from 'lucide-react';
 import { InvestigationReport, InvestigationAlertLevel } from '../types';
+import { InfluenceNetworkGraph } from './InfluenceNetworkGraph';
 
 interface InvestigationReportViewProps {
   report: InvestigationReport;
@@ -259,6 +260,11 @@ Document généré par Transparence Québec - Vigie de l'intégrité et de la d�
           « {report.coreFinding} »
         </p>
       </div>
+
+      {/* Influence Network Graph (Connect Matrix) */}
+      {report.interestLinks?.length > 0 && (
+        <InfluenceNetworkGraph links={report.interestLinks} />
+      )}
 
       {/* Two Column Grid: Verified Facts & Mapped Conflicts of Interest */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
