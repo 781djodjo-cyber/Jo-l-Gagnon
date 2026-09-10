@@ -18,6 +18,7 @@ import { Header } from './components/Header';
 import { InvestigationSearchBar } from './components/InvestigationSearchBar';
 import { InvestigationReportView } from './components/InvestigationReportView';
 import { CasesGallery } from './components/CasesGallery';
+import { GlobalInfluenceNetwork } from './components/GlobalInfluenceNetwork';
 import { SpeechCheckView } from './components/SpeechCheckView';
 import { WhistleblowerGuideView } from './components/WhistleblowerGuideView';
 import { InteractiveChatView } from './components/InteractiveChatView';
@@ -212,6 +213,13 @@ export const App: React.FC = () => {
             {currentTab === 'cases' && (
               <CasesGallery
                 onSelectDossier={handleSelectDossier}
+              />
+            )}
+
+            {currentTab === 'network' && (
+              <GlobalInfluenceNetwork
+                history={history}
+                onOpenReport={handleSelectDossier}
               />
             )}
 

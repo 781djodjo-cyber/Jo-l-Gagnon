@@ -9,7 +9,8 @@ import {
   Sun, 
   Moon,
   Scale,
-  Bot
+  Bot,
+  Network
 } from 'lucide-react';
 import { ViewTab } from '../types';
 
@@ -103,6 +104,20 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             <button
+              id="nav-tab-network"
+              type="button"
+              onClick={() => onSelectTab('network')}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                currentTab === 'network'
+                  ? 'bg-white dark:bg-stone-900 text-blue-900 dark:text-blue-300 shadow-xs'
+                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
+              }`}
+            >
+              <Network className="w-3.5 h-3.5" />
+              <span>Le Grand Réseau</span>
+            </button>
+
+            <button
               id="nav-tab-speech"
               type="button"
               onClick={() => onSelectTab('speech_check')}
@@ -191,6 +206,16 @@ export const Header: React.FC<HeaderProps> = ({
             }`}
           >
             Dossiers Emblématiques
+          </button>
+          <button
+            onClick={() => onSelectTab('network')}
+            className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
+              currentTab === 'network'
+                ? 'bg-blue-900 text-white'
+                : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
+            }`}
+          >
+            Le Grand Réseau
           </button>
           <button
             onClick={() => onSelectTab('speech_check')}
