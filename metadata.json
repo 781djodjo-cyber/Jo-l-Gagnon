@@ -1,0 +1,6 @@
+{
+  "name": "Transparence Québec",
+  "description": "Plateforme d'investigation citoyenne et d'analyse documentaire sur l'intégrité publique, les conflits d'intérêts et la transparence de l'Assemblée nationale du Québec.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
