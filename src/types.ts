@@ -54,7 +54,7 @@ export interface InvestigationReport {
   sourcesGrounding: string[];
 }
 
-export type ViewTab = 'investigate' | 'chat_ai' | 'cases' | 'speech_check' | 'whistleblower_guide';
+export type ViewTab = 'investigate' | 'chat_ai' | 'cases' | 'network' | 'speech_check' | 'whistleblower_guide';
 
 export type ControlTriggerType =
   | 'DPJ_PIPELINE'
