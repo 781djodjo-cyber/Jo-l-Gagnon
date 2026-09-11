@@ -10,7 +10,8 @@ import {
   Moon,
   Scale,
   Bot,
-  Network
+  HeartHandshake,
+  Radio
 } from 'lucide-react';
 import { ViewTab } from '../types';
 
@@ -76,6 +77,34 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             <button
+              id="nav-tab-dpj-focus"
+              type="button"
+              onClick={() => onSelectTab('dpj_focus')}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                currentTab === 'dpj_focus'
+                  ? 'bg-amber-500 text-stone-950 font-black shadow-xs ring-1 ring-amber-400'
+                  : 'text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 bg-amber-500/10 dark:bg-amber-500/10'
+              }`}
+            >
+              <HeartHandshake className="w-3.5 h-3.5 text-amber-600 dark:text-amber-300" />
+              <span>Observatoire DPJ</span>
+            </button>
+
+            <button
+              id="nav-tab-social-pusher"
+              type="button"
+              onClick={() => onSelectTab('social_pusher')}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                currentTab === 'social_pusher'
+                  ? 'bg-blue-600 text-white font-black shadow-xs ring-1 ring-blue-500'
+                  : 'text-blue-700 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 bg-blue-500/10 dark:bg-blue-500/10'
+              }`}
+            >
+              <Radio className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 animate-pulse" />
+              <span>Attracteur D-1 / H24</span>
+            </button>
+
+            <button
               id="nav-tab-chat-ai"
               type="button"
               onClick={() => onSelectTab('chat_ai')}
@@ -86,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <Bot className="w-3.5 h-3.5 text-amber-500" />
-              <span>Dialogue & DPJ Triggers</span>
+              <span>Dialogue & Triggers</span>
             </button>
 
             <button
@@ -99,22 +128,8 @@ export const Header: React.FC<HeaderProps> = ({
                   : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
               }`}
             >
-              <FolderArchive className="w-3.5 h-3.5" />
-              <span>Dossiers Emblématiques</span>
-            </button>
-
-            <button
-              id="nav-tab-network"
-              type="button"
-              onClick={() => onSelectTab('network')}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                currentTab === 'network'
-                  ? 'bg-white dark:bg-stone-900 text-blue-900 dark:text-blue-300 shadow-xs'
-                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
-              }`}
-            >
-              <Network className="w-3.5 h-3.5" />
-              <span>Le Grand Réseau</span>
+              <FolderArchive className="w-3.5 h-3.5 text-amber-500" />
+              <span>Dossiers des Élites & Commissions</span>
             </button>
 
             <button
@@ -188,6 +203,26 @@ export const Header: React.FC<HeaderProps> = ({
             Enquête Libre
           </button>
           <button
+            onClick={() => onSelectTab('dpj_focus')}
+            className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
+              currentTab === 'dpj_focus'
+                ? 'bg-amber-500 text-stone-950 font-black'
+                : 'bg-amber-500/10 text-amber-700 dark:text-amber-400'
+            }`}
+          >
+            Observatoire DPJ
+          </button>
+          <button
+            onClick={() => onSelectTab('social_pusher')}
+            className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
+              currentTab === 'social_pusher'
+                ? 'bg-blue-600 text-white font-black'
+                : 'bg-blue-500/10 text-blue-700 dark:text-blue-400'
+            }`}
+          >
+            Attracteur D-1 / H24
+          </button>
+          <button
             onClick={() => onSelectTab('chat_ai')}
             className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
               currentTab === 'chat_ai'
@@ -195,7 +230,7 @@ export const Header: React.FC<HeaderProps> = ({
                 : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
             }`}
           >
-            Dialogue & DPJ Triggers
+            Dialogue & Triggers
           </button>
           <button
             onClick={() => onSelectTab('cases')}
@@ -205,17 +240,7 @@ export const Header: React.FC<HeaderProps> = ({
                 : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
             }`}
           >
-            Dossiers Emblématiques
-          </button>
-          <button
-            onClick={() => onSelectTab('network')}
-            className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
-              currentTab === 'network'
-                ? 'bg-blue-900 text-white'
-                : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
-            }`}
-          >
-            Le Grand Réseau
+            Élites & Commissions
           </button>
           <button
             onClick={() => onSelectTab('speech_check')}

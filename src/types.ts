@@ -54,14 +54,65 @@ export interface InvestigationReport {
   sourcesGrounding: string[];
 }
 
-export type ViewTab = 'investigate' | 'chat_ai' | 'cases' | 'network' | 'speech_check' | 'whistleblower_guide';
+export type ViewTab = 
+  | 'investigate' 
+  | 'dpj_focus' 
+  | 'social_pusher'
+  | 'chat_ai' 
+  | 'cases' 
+  | 'speech_check' 
+  | 'whistleblower_guide';
+
+export interface TikTokStep {
+  visual: string;
+  audio: string;
+}
+
+export interface TikTokScript {
+  hookVisual: string;
+  hookSpoken: string;
+  bodySteps: TikTokStep[];
+  callToAction: string;
+}
+
+export interface PressAlertD1 {
+  embargo: string;
+  headline: string;
+  leadParagraph: string;
+  bulletPoints: string[];
+  callToAction: string;
+}
+
+export interface QuoteCard {
+  quote: string;
+  authorOrEntity: string;
+  context: string;
+}
+
+export interface SocialPushPack {
+  id: string;
+  timestamp: number;
+  topic: string;
+  status: 'D-1 Urgent' | 'H24 Live Push' | 'Alerte Citoyenne' | 'Flash Enquête';
+  urgencyLevel: 'URGENCE_D1' | 'VIGILANCE_H24' | 'COMMUNIQUÉ_PRESSE';
+  viralScore: number;
+  hook: string;
+  xThread: string[];
+  linkedInPost: string;
+  facebookPost: string;
+  tiktokScript: TikTokScript;
+  pressAlertD1: PressAlertD1;
+  quoteCards: QuoteCard[];
+  hashtags: string[];
+}
 
 export type ControlTriggerType =
   | 'DPJ_PIPELINE'
   | 'CHAOS_ADMIN'
   | 'PUBLIC_FUNDS_CONTRACTS'
   | 'LOBBY_ETHICS'
-  | 'CITIZEN_RECOURSE';
+  | 'CITIZEN_RECOURSE'
+  | 'BIG_BROTHER_SURVEILLANCE';
 
 export interface ChatMessage {
   id: string;

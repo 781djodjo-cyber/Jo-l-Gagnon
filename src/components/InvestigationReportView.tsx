@@ -19,7 +19,8 @@ import {
   Users2,
   Calendar,
   AlertOctagon,
-  HelpCircle
+  HelpCircle,
+  Radio
 } from 'lucide-react';
 import { InvestigationReport, InvestigationAlertLevel } from '../types';
 import { InfluenceNetworkGraph } from './InfluenceNetworkGraph';
@@ -28,11 +29,13 @@ import { ShareReportMenu } from './ShareReportMenu';
 interface InvestigationReportViewProps {
   report: InvestigationReport;
   onReset: () => void;
+  onPushToSocialMedia?: (subject: string) => void;
 }
 
 export const InvestigationReportView: React.FC<InvestigationReportViewProps> = ({
   report,
   onReset,
+  onPushToSocialMedia,
 }) => {
   const [copied, setCopied] = useState(false);
 
@@ -134,6 +137,17 @@ Document généré par Transparence Québec - Vigie de l'intégrité et de la d�
         </button>
 
         <div className="flex items-center gap-2">
+          {onPushToSocialMedia && (
+            <button
+              type="button"
+              onClick={() => onPushToSocialMedia(report.subject)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all cursor-pointer shadow-xs"
+            >
+              <Radio className="w-3.5 h-3.5 animate-pulse" />
+              <span>Générer Push D-1 (IA)</span>
+            </button>
+          )}
+
           <button
             type="button"
             onClick={handleCopyReport}

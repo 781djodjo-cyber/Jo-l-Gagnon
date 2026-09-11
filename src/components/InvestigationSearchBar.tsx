@@ -8,15 +8,30 @@ import {
   FileText, 
   Users2, 
   ShieldAlert,
-  ArrowRight
+  ArrowRight,
+  HeartHandshake,
+  Flame,
+  Radio
 } from 'lucide-react';
 
 interface InvestigationSearchBarProps {
   onInvestigate: (query: string) => void;
   isLoading: boolean;
+  onNavigateToDpj?: () => void;
+  onNavigateToSocialPusher?: () => void;
 }
 
 const POPULAR_PROMPTS = [
+  {
+    title: 'Commissions d\'Enquête sur le Gouvernement & les Élites',
+    desc: 'Charbonneau (collusion), Bastarache (juges), Gomery (commandites), Chamberland (espionnage) et Poitras (police).',
+    query: 'Grand bilan des commissions d\'enquête publiques sur le gouvernement et les élites au Québec : Commission Charbonneau, Commission Bastarache, Commission Gomery, Commission Chamberland et Commission Poitras. Révélations chocs, condamnations judiciaires et réformes des lois québécoises.'
+  },
+  {
+    title: '« Big Brother » Numérique & Élite des Consultants',
+    desc: 'Scandales ArriveCAN (60M$), SAAQclic (500M$), contrats secrets McKinsey et surveillance d\'État.',
+    query: 'Big Brother numérique, surveillance d\'État, scandales des contrats IT ArriveCAN et SAAQclic, rôle des cabinets de conseil McKinsey et collusion des élites politiques québécoises et canadiennes.'
+  },
   {
     title: 'Fiasco SAAQclic & consultants privés',
     desc: 'Dépassements de coûts de 500M$, contrats de gré à gré et rapport du Vérificateur général (VGQ).',
@@ -33,9 +48,14 @@ const POPULAR_PROMPTS = [
     query: 'Investissements publics de plus de 2,9 milliards $ dans Northvolt au Québec, décrets gouvernementaux, contournement des audiences du BAPE et garanties de récupération des deniers publics.'
   },
   {
-    title: 'Crise de la DPJ & Avenir des Enfants',
-    desc: 'Suivi de la Commission Laurent, pénurie d\'intervenants sociaux et retards dans la nomination du Commissaire à l\'enfance.',
-    query: 'État de la Direction de la protection de la jeunesse (DPJ), mise en application des recommandations de la Commission Laurent pour l\'avenir des enfants et gestion des ressources financières du MSSS.'
+    title: 'Défense des Parents, Failles du Dossier & Codex LPJ',
+    desc: 'Outil d\'audit des rapports DPJ, détection des faits non corroborés, primauté de la famille élargie (Art. 2.4) et révision d\'ordonnance (Art. 95).',
+    query: 'Comment un parent peut-il se défendre efficacement contre la DPJ au Québec ? Analyse des failles fréquentes dans les rapports d\'évaluation selon l\'art. 53 LPJ, respect de la famille élargie selon l\'art. 2.4 LPJ, et modèle de requête en révision d\'ordonnance selon l\'art. 95 LPJ.'
+  },
+  {
+    title: 'Enfants Décédés sous la DPJ & Bureau du Coroner',
+    desc: 'Registre et graphique des 375+ enfants décédés, rapports d\'enquêtes des coroners Kamel et Malouin, et failles LPJ.',
+    query: 'Bilan et graphique des enfants décédés sous la DPJ au Québec, conclusions des rapports du Bureau du coroner (Granby, Wendake, Laurentides), signalements ignorés et failles systémiques de la LPJ.'
   },
   {
     title: 'Financement politique & Collusion dans la construction',
@@ -47,6 +67,8 @@ const POPULAR_PROMPTS = [
 export const InvestigationSearchBar: React.FC<InvestigationSearchBarProps> = ({
   onInvestigate,
   isLoading,
+  onNavigateToDpj,
+  onNavigateToSocialPusher,
 }) => {
   const [inputQuery, setInputQuery] = useState('');
 
@@ -58,6 +80,58 @@ export const InvestigationSearchBar: React.FC<InvestigationSearchBarProps> = ({
 
   return (
     <div className="space-y-6">
+      {/* Priority DPJ Observatory Carry Banner */}
+      {onNavigateToDpj && (
+        <div 
+          id="dpj-priority-banner"
+          className="rounded-2xl border-2 border-amber-500/40 bg-amber-500/10 dark:bg-amber-950/20 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs"
+        >
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-amber-500 text-stone-950 shrink-0">
+              <HeartHandshake className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-black uppercase font-mono tracking-wider text-amber-800 dark:text-amber-300">
+                  Priorité d'Urgence Nationale
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-900 dark:text-amber-200">
+                  Big Carry DPJ
+                </span>
+              </div>
+              <h3 className="text-sm font-bold font-serif text-stone-900 dark:text-stone-100">
+                Observatoire Citoyen de la DPJ & Protection de la Jeunesse
+              </h3>
+              <p className="text-xs text-stone-600 dark:text-stone-400">
+                Superbase des lésions de droits (140 enfants • CDPDJ), pipeline des signalements en 6 étapes, audit des 138 recs Laurent et recours LPJ.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            {onNavigateToSocialPusher && (
+              <button
+                type="button"
+                onClick={onNavigateToSocialPusher}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all cursor-pointer shrink-0 shadow-xs active:scale-95"
+              >
+                <Radio className="w-3.5 h-3.5 animate-pulse" />
+                <span>Attracteur D-1</span>
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={onNavigateToDpj}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-black transition-all cursor-pointer shrink-0 shadow-xs active:scale-95"
+            >
+              <span>Ouvrir l'Observatoire DPJ</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Search Input Card */}
       <div 
         id="investigation-input-card"

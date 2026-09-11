@@ -22,6 +22,8 @@ import { GlobalInfluenceNetwork } from './components/GlobalInfluenceNetwork';
 import { SpeechCheckView } from './components/SpeechCheckView';
 import { WhistleblowerGuideView } from './components/WhistleblowerGuideView';
 import { InteractiveChatView } from './components/InteractiveChatView';
+import { DpjBigCarryView } from './components/DpjBigCarryView';
+import { SocialPusherView } from './components/SocialPusherView';
 import { HistoryDrawer } from './components/HistoryDrawer';
 
 const LOCAL_STORAGE_HISTORY_KEY = 'transparence_qc_history';
@@ -33,6 +35,7 @@ export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [chatInitialQuery, setChatInitialQuery] = useState<string>('');
 
   // Dark Mode State
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -190,6 +193,10 @@ export const App: React.FC = () => {
           <InvestigationReportView
             report={activeReport}
             onReset={handleReset}
+            onPushToSocialMedia={() => {
+              setActiveReport(null);
+              setCurrentTab('social_pusher');
+            }}
           />
         ) : (
           <>
@@ -197,11 +204,36 @@ export const App: React.FC = () => {
               <InvestigationSearchBar
                 onInvestigate={handleInvestigate}
                 isLoading={isLoading}
+                onNavigateToDpj={() => setCurrentTab('dpj_focus')}
+                onNavigateToSocialPusher={() => setCurrentTab('social_pusher')}
+              />
+            )}
+
+            {currentTab === 'dpj_focus' && (
+              <DpjBigCarryView
+                onNavigateToTab={(t) => setCurrentTab(t)}
+                onSelectDossier={handleSelectDossier}
+                onOpenChatWithQuery={(q) => {
+                  setChatInitialQuery(q);
+                  setCurrentTab('chat_ai');
+                }}
+              />
+            )}
+
+            {currentTab === 'social_pusher' && (
+              <SocialPusherView
+                onOpenDossier={handleSelectDossier}
+                onOpenAiChatWithQuery={(q) => {
+                  setChatInitialQuery(q);
+                  setCurrentTab('chat_ai');
+                }}
               />
             )}
 
             {currentTab === 'chat_ai' && (
               <InteractiveChatView
+                initialQuery={chatInitialQuery}
+                initialTrigger="DPJ_PIPELINE"
                 onTriggerFullInvestigation={(q) => {
                   setCurrentTab('investigate');
                   handleInvestigate(q);

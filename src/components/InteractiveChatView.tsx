@@ -20,7 +20,8 @@ import {
   HelpCircle,
   ExternalLink,
   Flame,
-  FileCheck2
+  FileCheck2,
+  Eye
 } from 'lucide-react';
 import { ControlTriggerType, InvestigationAlertLevel } from '../types';
 
@@ -47,6 +48,8 @@ interface MessageItem {
 interface InteractiveChatViewProps {
   onTriggerFullInvestigation: (query: string) => void;
   onNavigateToTab: (tab: any) => void;
+  initialQuery?: string;
+  initialTrigger?: ControlTriggerType;
 }
 
 const CONTROL_TRIGGERS: {
@@ -96,10 +99,24 @@ const CONTROL_TRIGGERS: {
     icon: ShieldAlert,
     color: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-900 dark:text-emerald-200',
     badge: 'Protection Lanceur d\'Alerte'
+  },
+  {
+    id: 'BIG_BROTHER_SURVEILLANCE',
+    label: '« Big Brother » & Élite IT',
+    shortDesc: 'ArriveCAN (60M$), SAAQclic, McKinsey, surveillance policière et contrats secrets',
+    icon: Eye,
+    color: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-900 dark:text-cyan-200',
+    badge: 'Surveillance & Lobby'
   }
 ];
 
 const PRESET_QUERIES: Record<ControlTriggerType, string[]> = {
+  BIG_BROTHER_SURVEILLANCE: [
+    "Comment le scandale ArriveCAN est-il passé de 80 000 $ à 60M$ et quel a été le rôle de GCStrategies ?",
+    "Quels contrats sans appel d'offres ont été octroyés à McKinsey au fédéral et au Québec ?",
+    "Quelles sont les preuves d'espionnage policier de journalistes québécois selon la Commission Chamberland ?",
+    "Quels sont les recours légaux contre la centralisation et la surveillance biométrique des citoyens ?"
+  ],
   DPJ_PIPELINE: [
     "Pourquoi le pipeline des signalements à la DPJ est-il saturé et quels enfants sont en attente ?",
     "Quelles sont les responsabilités directes du ministre Lionel Carmant dans les retards de la DPJ ?",
@@ -131,11 +148,22 @@ const PRESET_QUERIES: Record<ControlTriggerType, string[]> = {
 export const InteractiveChatView: React.FC<InteractiveChatViewProps> = ({
   onTriggerFullInvestigation,
   onNavigateToTab,
+  initialQuery,
+  initialTrigger,
 }) => {
-  const [selectedTrigger, setSelectedTrigger] = useState<ControlTriggerType>('DPJ_PIPELINE');
-  const [inputMessage, setInputMessage] = useState('');
+  const [selectedTrigger, setSelectedTrigger] = useState<ControlTriggerType>(initialTrigger || 'DPJ_PIPELINE');
+  const [inputMessage, setInputMessage] = useState(initialQuery || '');
   const [isLoading, setIsLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (initialTrigger) {
+      setSelectedTrigger(initialTrigger);
+    }
+    if (initialQuery) {
+      setInputMessage(initialQuery);
+    }
+  }, [initialQuery, initialTrigger]);
 
   const [messages, setMessages] = useState<MessageItem[]>([
     {

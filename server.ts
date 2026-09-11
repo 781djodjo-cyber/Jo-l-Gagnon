@@ -219,7 +219,16 @@ Priorité absolue :
 TRIGGER ACTIF: [RECOURS CITOYENS & SIGNALEMENT PROTÉGÉ]
 Priorité absolue :
 - Guide le citoyen ou l'employé public de manière concrète sur les canaux protégés de dénonciation (Protecteur du citoyen - Loi D-11.1, UPAC, Tribunal administratif du travail).
-- Détaille les protections légales contre les représailles, le maintien de l'anonymat et les précautions documentaires.`
+- Détaille les protections légales contre les représailles, le maintien de l'anonymat et les précautions documentaires.`,
+
+      BIG_BROTHER_SURVEILLANCE: `
+TRIGGER ACTIF: [« BIG BROTHER » NUMÉRIQUE, SURVEILLANCE & ÉLITE DES CONSULTANTS]
+Priorité absolue :
+- Analyse les dérives de surveillance technocratique des citoyens et de centralisation des données biométriques (ArriveCAN, SAAQclic, outils ODITs/spyware de la GRC, surveillance policière de journalistes documentée par la Commission Chamberland).
+- Décortique l'enrichissement d'un cartel de firmes de courtiers et de multinationales du conseil (McKinsey, GCStrategies, CGI, Deloitte) via des contrats publics de gré à gré sans mise en concurrence ouverte.
+- Analyse le phénomène des portes tournantes ("pantouflage") entre l'élite politico-administrative québécoise et canadienne et les cabinets privés.
+- Établis les faits vérifiables issus des rapports officiels de la Vérificatrice générale du Canada (Karen Hogan) et du Vérificateur général du Québec (Guylaine Leclerc).
+- Expose les atteintes aux chartes des droits et libertés (droit fondamental à la vie privée, secret des sources journalistiques) et les recours légaux devant la CAI, le CPVP, l'UPAC et la GRC.`
     };
 
     const selectedTriggerDirective = triggerDirectives[controlTrigger] || triggerDirectives.DPJ_PIPELINE;
@@ -290,6 +299,109 @@ Réponds avec un diagnostic rigoureux, sans détour, adossé aux faits réels v�
     console.error("Erreur lors du chat d'investigation:", error);
     return res.status(500).json({
       error: error?.message || "Une erreur est survenue lors de l'échange avec l'oracle d'investigation.",
+    });
+  }
+});
+
+// Endpoint: AI Social Media Attractor & D-1 / H24 Push Generator
+app.post("/api/transparence/social-push", async (req, res) => {
+  try {
+    const { topic, angle = "D1_FLASH", customNotes = "" } = req.body;
+
+    if (!topic || typeof topic !== "string") {
+      return res.status(400).json({ error: "Le sujet (topic) est requis pour générer le push social média." });
+    }
+
+    const ai = getGenAI();
+
+    const systemInstruction = `Tu es l'Attracteur IA Social Média et Stratège d'Alerte Citoyenne de Transparence Québec.
+Ta mission est de transformer des enquêtes rigoureuses sur la gestion publique québécoise (DPJ, fonds publics, contrats, déontologie, Salon Bleu) en contenus percutants, vérifiés, hautement viraux et prêts à être diffusés H24 sur les réseaux sociaux.
+
+Règles impératives :
+1. Chaque affirmation doit être rigoureuse, basée sur des données vérifiables (rapports CDPDJ, Protecteur du citoyen, Vérificatrice générale, commissions parlementaires).
+2. L'accroche (hook) doit être magnétique sans être diffamatoire : elle s'appuie sur des chiffres réels, des articles de loi précis et des contrastes moraux saisissants.
+3. Génère une réponse exclusivement au format JSON strict avec la structure suivante :
+{
+  "id": "push-xxx",
+  "topic": "Titre explicite",
+  "status": "D-1 Urgent" | "H24 Live Push" | "Alerte Citoyenne" | "Flash Enquête",
+  "urgencyLevel": "URGENCE_D1" | "VIGILANCE_H24" | "COMMUNIQUÉ_PRESSE",
+  "viralScore": 96,
+  "hook": "Phrase choc magnétique d'accroche",
+  "xThread": [
+    "1/4 🚨 ALERTE D-1 : ...",
+    "2/4 📊 LES CHIFFRES : ...",
+    "3/4 ⚖️ L'ARTICLE DE LOI : ...",
+    "4/4 📢 CITOYENS : Exigeons des comptes. Partagez massivement. #PolQc #DPJ"
+  ],
+  "linkedInPost": "Texte complet professionnel structuré avec synthèse, faits d'audit, enjeux de gouvernance et appel à la responsabilité.",
+  "facebookPost": "Texte accessible et fédérateur pour les familles et citoyens du Québec avec questions directes aux élus et appel au partage.",
+  "tiktokScript": {
+    "hookVisual": "Ce qui s'affiche à l'écran (ex: zoom sur le document officiel CDPDJ)",
+    "hookSpoken": "La première phrase orale choc qui arrête le scroll",
+    "bodySteps": [
+      { "visual": "Texte ou action à l'écran", "audio": "Ce que dit le créateur (10s)" },
+      { "visual": "Graphique ou chiffre clé", "audio": "Deuxième révélation (15s)" }
+    ],
+    "callToAction": "Conclusion et appel à partager (5s)"
+  },
+  "pressAlertD1": {
+    "embargo": "POUR DIFFUSION IMMÉDIATE",
+    "headline": "TITRE OFFICIEL DU COMMUNIQUÉ",
+    "leadParagraph": "Chapeau journalistique condensé",
+    "bulletPoints": [
+      "Fait documenté 1",
+      "Fait documenté 2",
+      "Conséquence pour les citoyens"
+    ],
+    "callToAction": "Demande de réaction officielle auprès des ministères et instances concernées."
+  },
+  "quoteCards": [
+    {
+      "quote": "Citation ou formule choc d'interpellation",
+      "authorOrEntity": "Commission des droits de la jeunesse / Rapport d'audit",
+      "context": "Constat de lésion de droits ou dérive contractuelle"
+    }
+  ],
+  "hashtags": ["#PolQc", "#AssNat", "#TransparenceQC", "#DPJ", "#Québec"]
+}`;
+
+    const prompt = `Génère le pack de diffusion sociale "Attracteur IA D-1 / H24 Push" pour le sujet suivant :
+Sujet : ${topic}
+Angle d'attaque : ${angle}
+Notes complémentaires : ${customNotes || "Aucune"}
+
+Optimise pour un impact maximal, une totale fidélité aux faits québécois et une viralité saine au service de l'intérêt public.`;
+
+    const response = await generateWithFallback(ai, {
+      contents: prompt,
+      config: {
+        systemInstruction,
+        temperature: 0.25,
+        responseMimeType: "application/json",
+      },
+    });
+
+    const responseText = response.text || "{}";
+    let parsedData;
+    try {
+      parsedData = JSON.parse(responseText);
+    } catch {
+      const cleanJson = responseText.replace(/```json/gi, "").replace(/```/g, "").trim();
+      parsedData = JSON.parse(cleanJson);
+    }
+
+    parsedData.timestamp = Date.now();
+    parsedData.id = `push-${Date.now()}`;
+
+    return res.json({
+      success: true,
+      data: parsedData,
+    });
+  } catch (error: any) {
+    console.error("Erreur lors de la génération du push social:", error);
+    return res.status(500).json({
+      error: error?.message || "Une erreur est survenue lors de la génération du pack social média.",
     });
   }
 });

@@ -1,6 +1,6 @@
 {
   "name": "Transparence Québec",
-  "description": "Plateforme d'investigation citoyenne et d'analyse documentaire sur l'intégrité publique, les conflits d'intérêts et la transparence de l'Assemblée nationale du Québec.",
+  "description": "Plateforme d'investigation citoyenne, observatoire DPJ, codex des lois de la LPJ et outil d'étude du dossier et de défense pour les parents au Québec.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
