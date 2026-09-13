@@ -31,6 +31,7 @@ import {
   MEDIA_ARCHIVE_STATS,
   DpjMediaInvestigation
 } from '../data/dpjMediaInvestigationsData';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface DpjMediaArchiveSuperbaseViewProps {
   onOpenChatWithQuery?: (query: string) => void;
@@ -53,10 +54,12 @@ export const DpjMediaArchiveSuperbaseView: React.FC<DpjMediaArchiveSuperbaseView
   );
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2500);
+  const handleCopy = async (id: string, text: string) => {
+    const success = await safeCopyToClipboard(text);
+    if (success) {
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2500);
+    }
   };
 
   const categories = [

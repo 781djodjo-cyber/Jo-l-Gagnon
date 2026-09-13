@@ -20,15 +20,16 @@ import {
 } from 'lucide-react';
 import { PRELOADED_DOSSIERS, PreloadedDossier } from '../data/preloadedDossiers';
 import { COMMISSIONS_ENQUETE_DATABASE, CommissionEnquete } from '../data/commissionsEnqueteData';
-import { InvestigationReport } from '../types';
+import { InvestigationReport, ViewTab } from '../types';
 
 interface CasesGalleryProps {
   onSelectDossier: (report: InvestigationReport) => void;
+  onNavigateToTab?: (tab: ViewTab) => void;
 }
 
 type GalleryViewMode = 'all_dossiers' | 'commissions_memorial';
 
-export const CasesGallery: React.FC<CasesGalleryProps> = ({ onSelectDossier }) => {
+export const CasesGallery: React.FC<CasesGalleryProps> = ({ onSelectDossier, onNavigateToTab }) => {
   const [viewMode, setViewMode] = useState<GalleryViewMode>('all_dossiers');
   const [selectedCategory, setSelectedCategory] = useState<string>('Tous');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -364,18 +365,48 @@ export const CasesGallery: React.FC<CasesGalleryProps> = ({ onSelectDossier }) =
                   </div>
 
                   <div className="pt-5 mt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between">
-                    <span className="text-[11px] font-medium text-stone-400 dark:text-stone-500">
-                      🏷️ {dossier.tag}
-                    </span>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-[11px] font-medium text-stone-400 dark:text-stone-500">
+                        🏷️ {dossier.tag}
+                      </span>
+                      {dossier.report.complementaryDocuments && dossier.report.complementaryDocuments.length > 0 && (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                          <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                          <span>{dossier.report.complementaryDocuments.length} docs vérifiés</span>
+                        </span>
+                      )}
+                    </div>
 
-                    <button
-                      type="button"
-                      onClick={() => onSelectDossier(dossier.report)}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-blue-900 hover:bg-blue-800 dark:bg-blue-700 dark:hover:bg-blue-600 text-white transition-all cursor-pointer group-hover:translate-x-0.5"
-                    >
-                      <span>Consulter le Dossier</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
+                    <div className="flex items-center gap-2">
+                      {dossier.id === 'reseau-epstein-elites-quebec' && onNavigateToTab && (
+                        <button
+                          type="button"
+                          onClick={() => onNavigateToTab('epstein_database')}
+                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-purple-100 hover:bg-purple-200 dark:bg-purple-950/80 dark:hover:bg-purple-900 text-purple-900 dark:text-purple-300 transition-all cursor-pointer border border-purple-300 dark:border-purple-800"
+                        >
+                          <span>Base Epstein (Vols & SDNY)</span>
+                        </button>
+                      )}
+
+                      {dossier.id === 'mk-ultra-allan-memorial-mcgill' && onNavigateToTab && (
+                        <button
+                          type="button"
+                          onClick={() => onNavigateToTab('mk_ultra')}
+                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-red-100 hover:bg-red-200 dark:bg-red-950/80 dark:hover:bg-red-900 text-red-900 dark:text-red-300 transition-all cursor-pointer border border-red-300 dark:border-red-800"
+                        >
+                          <span>Base MK-Ultra</span>
+                        </button>
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={() => onSelectDossier({ ...dossier.report, id: dossier.id })}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-blue-900 hover:bg-blue-800 dark:bg-blue-700 dark:hover:bg-blue-600 text-white transition-all cursor-pointer group-hover:translate-x-0.5"
+                      >
+                        <span>Consulter le Dossier</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               );

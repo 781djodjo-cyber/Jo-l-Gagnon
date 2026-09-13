@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Share2, Link2, Check, Mail } from 'lucide-react';
 import { InvestigationReport } from '../types';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface ShareReportMenuProps {
   report: InvestigationReport;
@@ -78,7 +79,11 @@ export const ShareReportMenu: React.FC<ShareReportMenuProps> = ({ report }) => {
   }, [open]);
 
   const openWindow = (url: string) => {
-    window.open(url, '_blank', 'noopener,noreferrer,width=640,height=640');
+    try {
+      window.open(url, '_blank', 'noopener,noreferrer,width=640,height=640');
+    } catch {
+      window.location.href = url;
+    }
     setOpen(false);
   };
 
@@ -111,12 +116,10 @@ export const ShareReportMenu: React.FC<ShareReportMenuProps> = ({ report }) => {
   };
 
   const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl);
+    const success = await safeCopyToClipboard(shareUrl);
+    if (success) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // clipboard unavailable
     }
   };
 

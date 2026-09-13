@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { SocialPushPack } from '../types';
 import { PRELOADED_SOCIAL_PUSHES } from '../data/preloadedSocialPushes';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface SocialPusherViewProps {
   onOpenDossier?: (dossierId: string) => void;
@@ -60,10 +61,12 @@ export const SocialPusherView: React.FC<SocialPusherViewProps> = ({
     { label: 'Foyers clandestins & Aînés', topic: 'Résidences pour aînés non conformes et failles d\'inspections MSSS' }
   ];
 
-  const handleCopy = (key: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedKey(key);
-    setTimeout(() => setCopiedKey(null), 2500);
+  const handleCopy = async (key: string, text: string) => {
+    const success = await safeCopyToClipboard(text);
+    if (success) {
+      setCopiedKey(key);
+      setTimeout(() => setCopiedKey(null), 2500);
+    }
   };
 
   const handleNativeShare = async (title: string, text: string) => {
@@ -88,20 +91,31 @@ export const SocialPusherView: React.FC<SocialPusherViewProps> = ({
     setTimeout(() => setNotificationMsg(null), 3000);
   };
 
+  const safeOpenWindow = (url: string) => {
+    try {
+      const win = window.open(url, '_blank', 'noopener,noreferrer');
+      if (!win) {
+        showNotification('Ouverture du pop-up bloquée par votre navigateur.');
+      }
+    } catch {
+      showNotification('Impossible d\'ouvrir la fenêtre externe dans ce contexte.');
+    }
+  };
+
   const handleShareToTwitter = (text: string) => {
     const encoded = encodeURIComponent(text);
     const url = `https://twitter.com/intent/tweet?text=${encoded}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
+    safeOpenWindow(url);
   };
 
   const handleShareToLinkedIn = () => {
     const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
+    safeOpenWindow(url);
   };
 
   const handleShareToFacebook = () => {
     const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
+    safeOpenWindow(url);
   };
 
   const handleGeneratePush = async (topicToUse?: string) => {

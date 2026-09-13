@@ -24,6 +24,7 @@ import {
   Eye
 } from 'lucide-react';
 import { ControlTriggerType, InvestigationAlertLevel } from '../types';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface ChatResponseData {
   content: string;
@@ -134,6 +135,7 @@ const PRESET_QUERIES: Record<ControlTriggerType, string[]> = {
     "Comment le fiasco SAAQclic a-t-il privé d'autres ministères de budgets vitaux ?"
   ],
   LOBBY_ETHICS: [
+    "Quels sont les faits vérifiés et documents décachetés de New York (SDNY) liant le réseau Jeffrey Epstein et Jean-Luc Brunel à Montréal et au Québec ?",
     "Quels sont les cas récents de portes tournantes entre les cabinets politiques et les lobbyistes au Québec ?",
     "Que prévoient les règles du Commissaire à l'éthique pour les ministres démissionnaires ?",
     "Comment vérifier si une rencontre avec un ministre a été inscrite à Carrefour Lobby Québec ?"
@@ -249,10 +251,11 @@ export const InteractiveChatView: React.FC<InteractiveChatViewProps> = ({
 
       if (data.data) {
         const parsed: ChatResponseData = data.data;
+        const textContent = parsed.content || (parsed as any).reply || "";
         const assistantMsg: MessageItem = {
           id: parsed.id || `bot-${Date.now()}`,
           role: 'assistant',
-          content: parsed.content,
+          content: textContent,
           timestamp: Date.now(),
           trigger: selectedTrigger,
           parsedData: parsed
@@ -273,10 +276,12 @@ export const InteractiveChatView: React.FC<InteractiveChatViewProps> = ({
     }
   };
 
-  const handleCopyText = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2500);
+  const handleCopyText = async (id: string, text: string) => {
+    const success = await safeCopyToClipboard(text);
+    if (success) {
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2500);
+    }
   };
 
   const handleResetChat = () => {

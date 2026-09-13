@@ -1,6 +1,6 @@
 {
   "name": "Transparence Québec",
-  "description": "Plateforme d'investigation citoyenne, observatoire DPJ, codex des lois de la LPJ et outil d'étude du dossier et de défense pour les parents au Québec.",
+  "description": "Plateforme d'investigation citoyenne et d'intégrité publique au Québec : observatoire de la DPJ, codex LPJ, commissions d'enquête, grille des ministres et universités, superbase MK-Ultra (McGill) et base déclassifiée sur le réseau Epstein (vols FAA Dorval/Mirabel, SDNY et filière Brunel).",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -30,6 +30,7 @@ import {
   DpjJurisprudence,
   getJurisprudencesForLesion
 } from '../data/dpjJurisprudenceData';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 export interface SuperbaseLesionRecord {
   id: string;
@@ -255,10 +256,12 @@ export const SuperbaseLesionsView: React.FC<SuperbaseLesionsViewProps> = ({
     return matchesCourt && matchesCat && matchesQ;
   });
 
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2500);
+  const handleCopy = async (id: string, text: string) => {
+    const success = await safeCopyToClipboard(text);
+    if (success) {
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2500);
+    }
   };
 
   return (

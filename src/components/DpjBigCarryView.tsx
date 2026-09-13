@@ -29,21 +29,25 @@ import {
   Info,
   Database,
   HeartCrack,
-  Tv
+  Tv,
+  Compass
 } from 'lucide-react';
 import { ViewTab } from '../types';
 import { SuperbaseLesionsView } from './SuperbaseLesionsView';
 import { DpjDeceasedChildrenGraph } from './DpjDeceasedChildrenGraph';
+import { DpjFuguesGraph } from './DpjFuguesGraph';
 import { DpjMediaArchiveSuperbaseView } from './DpjMediaArchiveSuperbaseView';
 import { DpjCaseFileAuditTool } from './DpjCaseFileAuditTool';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface DpjBigCarryViewProps {
   onNavigateToTab: (tab: ViewTab) => void;
   onSelectDossier: (dossierId: string) => void;
   onOpenChatWithQuery: (query: string) => void;
+  initialSubTab?: string;
 }
 
-type SubTab = 'pipeline' | 'graph_deces' | 'superbase_lesions' | 'archives_reportages' | 'outil_defense_dossier' | 'commission_laurent' | 'imputabilite' | 'calculateur_droits' | 'lanceur_alerte';
+type SubTab = 'pipeline' | 'graph_deces' | 'graph_fugues' | 'superbase_lesions' | 'archives_reportages' | 'outil_defense_dossier' | 'commission_laurent' | 'imputabilite' | 'calculateur_droits' | 'lanceur_alerte';
 
 interface PipelineStep {
   id: string;
@@ -335,17 +339,35 @@ export const DpjBigCarryView: React.FC<DpjBigCarryViewProps> = ({
   onNavigateToTab,
   onSelectDossier,
   onOpenChatWithQuery,
+  initialSubTab,
 }) => {
-  const [activeSubTab, setActiveSubTab] = useState<SubTab>('pipeline');
+  const getInitialSubTab = (): SubTab => {
+    if (!initialSubTab) return 'pipeline';
+    const s = initialSubTab.toLowerCase();
+    if (s.includes('deces') || s.includes('deceased') || s.includes('coroner')) return 'graph_deces';
+    if (s.includes('fugue')) return 'graph_fugues';
+    if (s.includes('superbase') || s.includes('lesion')) return 'superbase_lesions';
+    if (s.includes('archive') || s.includes('reportage') || s.includes('media')) return 'archives_reportages';
+    if (s.includes('defense') || s.includes('audit') || s.includes('loi') || s.includes('jurisprudence')) return 'outil_defense_dossier';
+    if (s.includes('laurent') || s.includes('commission')) return 'commission_laurent';
+    if (s.includes('imputabilite') || s.includes('ministre')) return 'imputabilite';
+    if (s.includes('calculat')) return 'calculateur_droits';
+    if (s.includes('alerte') || s.includes('whistleblower')) return 'lanceur_alerte';
+    return 'pipeline';
+  };
+
+  const [activeSubTab, setActiveSubTab] = useState<SubTab>(getInitialSubTab);
   const [selectedPipelineStep, setSelectedPipelineStep] = useState<PipelineStep>(PIPELINE_STEPS[0]);
   const [selectedInfraction, setSelectedInfraction] = useState<LpjInfractionTest>(LPJ_INFRACTIONS[0]);
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [copiedTemplateId, setCopiedTemplateId] = useState<string | null>(null);
 
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedTemplateId(id);
-    setTimeout(() => setCopiedTemplateId(null), 2500);
+  const handleCopy = async (id: string, text: string) => {
+    const success = await safeCopyToClipboard(text);
+    if (success) {
+      setCopiedTemplateId(id);
+      setTimeout(() => setCopiedTemplateId(null), 2500);
+    }
   };
 
   const filteredLaurentRecs = filterCategory === 'all'
@@ -387,6 +409,24 @@ export const DpjBigCarryView: React.FC<DpjBigCarryViewProps> = ({
               >
                 <HeartCrack className="w-3.5 h-3.5 text-rose-400 animate-pulse" />
                 <span>Graphique Décès DPJ (375+ Enfants)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveSubTab('graph_fugues')}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-amber-600/70 bg-amber-950/70 hover:bg-amber-900/80 text-xs font-bold text-amber-200 transition-colors cursor-pointer shadow-xs"
+              >
+                <Compass className="w-3.5 h-3.5 text-amber-400" />
+                <span>Graphique Fugues DPJ (10 000+ Cas)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => onNavigateToTab('evidence_bot')}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-cyan-500/60 bg-cyan-950/60 hover:bg-cyan-900/70 text-xs font-bold text-cyan-200 transition-colors cursor-pointer shadow-xs"
+              >
+                <Bot className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                <span>Bot Preuves & Médias</span>
               </button>
 
               <button
@@ -519,6 +559,19 @@ export const DpjBigCarryView: React.FC<DpjBigCarryViewProps> = ({
         >
           <HeartCrack className="w-4 h-4 text-rose-500" />
           <span>Graphique Décès DPJ (Coroner)</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveSubTab('graph_fugues')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+            activeSubTab === 'graph_fugues'
+              ? 'bg-white dark:bg-stone-800 text-amber-600 dark:text-amber-400 shadow-xs ring-2 ring-amber-500/50'
+              : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
+          }`}
+        >
+          <Compass className="w-4 h-4 text-amber-500" />
+          <span>Graphique Fugues & Exploitation DPJ</span>
         </button>
 
         <button
@@ -758,6 +811,14 @@ export const DpjBigCarryView: React.FC<DpjBigCarryViewProps> = ({
       {/* SUBTAB: GRAPHIQUE & RÉPERTOIRE DES DÉCÈS D'ENFANTS (CORONER) */}
       {activeSubTab === 'graph_deces' && (
         <DpjDeceasedChildrenGraph
+          onOpenChatWithQuery={onOpenChatWithQuery}
+          onSelectDossier={onSelectDossier}
+        />
+      )}
+
+      {/* SUBTAB: GRAPHIQUE DES FUGUES ET TRAITE DES ENFANTS DPJ */}
+      {activeSubTab === 'graph_fugues' && (
+        <DpjFuguesGraph
           onOpenChatWithQuery={onOpenChatWithQuery}
           onSelectDossier={onSelectDossier}
         />

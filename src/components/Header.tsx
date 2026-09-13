@@ -11,7 +11,13 @@ import {
   Scale,
   Bot,
   HeartHandshake,
-  Radio
+  Radio,
+  Network,
+  ShieldCheck,
+  Lock,
+  GraduationCap,
+  Zap,
+  Plane
 } from 'lucide-react';
 import { ViewTab } from '../types';
 
@@ -22,6 +28,7 @@ interface HeaderProps {
   onToggleDarkMode: () => void;
   historyCount: number;
   onOpenHistory: () => void;
+  onOpenSecurityVault?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -31,6 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleDarkMode,
   historyCount,
   onOpenHistory,
+  onOpenSecurityVault,
 }) => {
   return (
     <header className="border-b border-stone-200 dark:border-stone-800 bg-white/95 dark:bg-stone-900/95 backdrop-blur-md sticky top-0 z-30 transition-colors">
@@ -91,6 +99,20 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             <button
+              id="nav-tab-evidence-bot"
+              type="button"
+              onClick={() => onSelectTab('evidence_bot')}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                currentTab === 'evidence_bot'
+                  ? 'bg-cyan-600 text-stone-950 font-black shadow-xs ring-1 ring-cyan-400'
+                  : 'text-cyan-700 dark:text-cyan-400 hover:text-cyan-800 dark:hover:text-cyan-300 bg-cyan-500/10 dark:bg-cyan-500/10'
+              }`}
+            >
+              <Bot className="w-3.5 h-3.5 text-cyan-500 animate-pulse" />
+              <span>Bot Preuves & Médias</span>
+            </button>
+
+            <button
               id="nav-tab-social-pusher"
               type="button"
               onClick={() => onSelectTab('social_pusher')}
@@ -119,6 +141,48 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             <button
+              id="nav-tab-ministers"
+              type="button"
+              onClick={() => onSelectTab('ministers_schools')}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                currentTab === 'ministers_schools'
+                  ? 'bg-white dark:bg-stone-900 text-blue-900 dark:text-blue-300 shadow-xs'
+                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
+              }`}
+            >
+              <GraduationCap className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+              <span>Ministres & Universités (1995-2026)</span>
+            </button>
+
+            <button
+              id="nav-tab-mkultra"
+              type="button"
+              onClick={() => onSelectTab('mk_ultra')}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                currentTab === 'mk_ultra'
+                  ? 'bg-white dark:bg-stone-900 text-red-900 dark:text-red-400 shadow-xs'
+                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
+              }`}
+            >
+              <Zap className="w-3.5 h-3.5 text-red-500" />
+              <span>Base MK-Ultra (McGill)</span>
+            </button>
+
+            <button
+              id="nav-tab-epstein"
+              type="button"
+              onClick={() => onSelectTab('epstein_database')}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                currentTab === 'epstein_database'
+                  ? 'bg-white dark:bg-stone-900 text-purple-900 dark:text-purple-400 shadow-xs'
+                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
+              }`}
+            >
+              <Plane className="w-3.5 h-3.5 text-purple-500" />
+              <span>Base Réseau Epstein (SDNY / Vols QC)</span>
+            </button>
+
+            <button
               id="nav-tab-cases"
               type="button"
               onClick={() => onSelectTab('cases')}
@@ -130,6 +194,20 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <FolderArchive className="w-3.5 h-3.5 text-amber-500" />
               <span>Dossiers des Élites & Commissions</span>
+            </button>
+
+            <button
+              id="nav-tab-network"
+              type="button"
+              onClick={() => onSelectTab('network')}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                currentTab === 'network'
+                  ? 'bg-blue-600 text-white font-black shadow-xs ring-1 ring-blue-400'
+                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
+              }`}
+            >
+              <Network className="w-3.5 h-3.5 text-blue-500 dark:text-blue-300" />
+              <span>Graphique Corruption & Réseau</span>
             </button>
 
             <button
@@ -163,6 +241,17 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Action Buttons */}
           <div className="flex items-center gap-2">
+            <button
+              id="btn-open-security-vault"
+              type="button"
+              onClick={onOpenSecurityVault}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-bold transition-all cursor-pointer shadow-xs"
+              title="Coffre Cryptographique & Bouclier Anti-Corruption de l'IA"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+              <span className="hidden sm:inline">IA Chiffrée & Scellée</span>
+            </button>
+
             <button
               id="btn-open-history"
               type="button"
@@ -213,6 +302,16 @@ export const Header: React.FC<HeaderProps> = ({
             Observatoire DPJ
           </button>
           <button
+            onClick={() => onSelectTab('evidence_bot')}
+            className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
+              currentTab === 'evidence_bot'
+                ? 'bg-cyan-600 text-stone-950 font-black'
+                : 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-400'
+            }`}
+          >
+            Bot Preuves & Médias
+          </button>
+          <button
             onClick={() => onSelectTab('social_pusher')}
             className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
               currentTab === 'social_pusher'
@@ -233,6 +332,36 @@ export const Header: React.FC<HeaderProps> = ({
             Dialogue & Triggers
           </button>
           <button
+            onClick={() => onSelectTab('ministers_schools')}
+            className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
+              currentTab === 'ministers_schools'
+                ? 'bg-blue-600 text-white'
+                : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
+            }`}
+          >
+            Ministres & Universités
+          </button>
+          <button
+            onClick={() => onSelectTab('mk_ultra')}
+            className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
+              currentTab === 'mk_ultra'
+                ? 'bg-red-600 text-white'
+                : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
+            }`}
+          >
+            Base MK-Ultra (McGill)
+          </button>
+          <button
+            onClick={() => onSelectTab('epstein_database')}
+            className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
+              currentTab === 'epstein_database'
+                ? 'bg-purple-600 text-white'
+                : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
+            }`}
+          >
+            Base Réseau Epstein (Vols QC)
+          </button>
+          <button
             onClick={() => onSelectTab('cases')}
             className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
               currentTab === 'cases'
@@ -241,6 +370,16 @@ export const Header: React.FC<HeaderProps> = ({
             }`}
           >
             Élites & Commissions
+          </button>
+          <button
+            onClick={() => onSelectTab('network')}
+            className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer ${
+              currentTab === 'network'
+                ? 'bg-blue-600 text-white font-black'
+                : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300'
+            }`}
+          >
+            Graphique Corruption & Réseau
           </button>
           <button
             onClick={() => onSelectTab('speech_check')}

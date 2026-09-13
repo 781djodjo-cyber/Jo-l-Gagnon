@@ -48,6 +48,7 @@ import {
   OFFICIAL_CORONER_INQUIRIES_COUNT,
   DpjDocumentedTragedy
 } from '../data/dpjDeceasedChildrenData';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface DpjDeceasedChildrenGraphProps {
   onOpenChatWithQuery?: (query: string) => void;
@@ -68,10 +69,12 @@ export const DpjDeceasedChildrenGraph: React.FC<DpjDeceasedChildrenGraphProps> =
   );
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2500);
+  const handleCopy = async (id: string, text: string) => {
+    const success = await safeCopyToClipboard(text);
+    if (success) {
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2500);
+    }
   };
 
   // Filter documented tragedies

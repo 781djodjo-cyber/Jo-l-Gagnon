@@ -11,7 +11,8 @@ import {
   ArrowRight,
   HeartHandshake,
   Flame,
-  Radio
+  Radio,
+  Network
 } from 'lucide-react';
 
 interface InvestigationSearchBarProps {
@@ -19,13 +20,39 @@ interface InvestigationSearchBarProps {
   isLoading: boolean;
   onNavigateToDpj?: () => void;
   onNavigateToSocialPusher?: () => void;
+  onNavigateToNetwork?: () => void;
 }
 
 const POPULAR_PROMPTS = [
   {
+    title: 'Graphique Systémique : Tous les Liens de Corruption & Preuves',
+    desc: 'Passerelles documentées reliant Exécutif, Charbonneau BTP, Firmes conseils, DPJ, MK-Ultra McGill et Epstein SDNY.',
+    query: 'Grand graphique et analyse des passerelles de corruption au Québec reliant l\'Exécutif, la collusion BTP Charbonneau, les firmes de conseil IT, les 10 000 fugues de la DPJ, le programme MK-Ultra à McGill et les ramifications Epstein SDNY.'
+  },
+  {
+    title: 'Base Documentée MK-Ultra : Allan Memorial & McGill',
+    desc: 'Sous-projet 68 CIA, Dr Ewen Cameron, déstructuration, 60 jours de comas, auditions Sénat 1977 et décrets 1992.',
+    query: 'Projet MK-Ultra : Enquête documentaire intégrale sur le Sous-projet 68 à l\'Institut Allan Memorial de McGill, les cobayes québécois, le financement de la CIA et de Santé Canada, et les recours collectifs en Cour supérieure.'
+  },
+  {
+    title: 'Grille des Ministres du Québec (1995-2026) & Universités',
+    desc: 'Cartographie des facultés de droit, HEC, McGill, Harvard et filières de diplomation de l\'Exécutif québécois.',
+    query: 'Grille analytique des ministres québécois depuis 1995, universités fréquentées, diplômes en droit et gestion, et passerelles d\'influence vers le Conseil exécutif.'
+  },
+  {
     title: 'Commissions d\'Enquête sur le Gouvernement & les Élites',
     desc: 'Charbonneau (collusion), Bastarache (juges), Gomery (commandites), Chamberland (espionnage) et Poitras (police).',
     query: 'Grand bilan des commissions d\'enquête publiques sur le gouvernement et les élites au Québec : Commission Charbonneau, Commission Bastarache, Commission Gomery, Commission Chamberland et Commission Poitras. Révélations chocs, condamnations judiciaires et réformes des lois québécoises.'
+  },
+  {
+    title: 'Réseau Epstein, Décachetage SDNY & Élites au Québec',
+    desc: 'Escales à Montréal (YUL/YMX), carnet « Black Book », filière de mannequins Jean-Luc Brunel et vérifications rigoureuses.',
+    query: 'Quels sont les faits vérifiés et documents judiciaires décachetés liant le réseau Jeffrey Epstein, Jean-Luc Brunel et Ghislaine Maxwell au Québec, incluant les escales d\'avions à Montréal, le recrutement de mannequins et les mentions dans les carnets saisis ?'
+  },
+  {
+    title: 'Fugues DPJ, Réseaux de Traite & Motels de Transit',
+    desc: '10 000+ fugues/an, Filles de Laval, recrutement par les gangs de rue, 1 100+ enfants en motel et faillite de garde.',
+    query: 'Enquête nationale sur les 10 000+ fugues annuelles d\'enfants sous la garde de la DPJ, le proxénétisme juvénile à Laval et Montréal, le recours illégal aux chambres de motel sans surveillance clinique et les conclusions du Chapitre 8 de la Commission Laurent.'
   },
   {
     title: '« Big Brother » Numérique & Élite des Consultants',
@@ -69,6 +96,7 @@ export const InvestigationSearchBar: React.FC<InvestigationSearchBarProps> = ({
   isLoading,
   onNavigateToDpj,
   onNavigateToSocialPusher,
+  onNavigateToNetwork,
 }) => {
   const [inputQuery, setInputQuery] = useState('');
 
@@ -109,6 +137,17 @@ export const InvestigationSearchBar: React.FC<InvestigationSearchBarProps> = ({
           </div>
 
           <div className="flex items-center gap-2 w-full sm:w-auto">
+            {onNavigateToNetwork && (
+              <button
+                type="button"
+                onClick={onNavigateToNetwork}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-900 hover:bg-blue-800 text-white text-xs font-black transition-all cursor-pointer shrink-0 shadow-xs active:scale-95 ring-1 ring-blue-700"
+              >
+                <Network className="w-3.5 h-3.5 text-amber-400" />
+                <span>Graphique de la Corruption</span>
+              </button>
+            )}
+
             {onNavigateToSocialPusher && (
               <button
                 type="button"

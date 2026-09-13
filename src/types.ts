@@ -34,6 +34,24 @@ export interface LegalRecourse {
   whistleblowerProtection: string;
 }
 
+export interface ComplementaryDocumentLink {
+  id: string;
+  title: string;
+  type: 'commission' | 'jurisprudence' | 'fugues_stats' | 'coroner' | 'audit_vgq' | 'loi_article' | 'enquete_media';
+  summary: string;
+  officialRef: string;
+  howItProvesTheTruth: string; // Comment ce document corrobore et prouve la vérité du dossier
+  actionViewTab?: ViewTab;
+  filterParam?: string;
+}
+
+export interface TruthVerificationIndex {
+  triangulatedSourcesCount: number;
+  officialRecordsChecked: string[];
+  truthRating: 'VÉRITÉ_INCONTESTABLE_MULTI_SOURCES' | 'DOCUMENTS_OFFICIELS_CONCORDANTS' | 'ENQUÊTE_EN_COURS_CORROBORÉE';
+  crossValidationSummary: string;
+}
+
 export interface InvestigationReport {
   id?: string;
   timestamp?: number;
@@ -52,14 +70,21 @@ export interface InvestigationReport {
   legalRecourses: LegalRecourse[];
   impactOnCitizensAndChildren: string; // Impact sur l'avenir public, les fonds des écoles, garderies, services publics
   sourcesGrounding: string[];
+  complementaryDocuments?: ComplementaryDocumentLink[];
+  truthVerificationIndex?: TruthVerificationIndex;
 }
 
 export type ViewTab = 
   | 'investigate' 
   | 'dpj_focus' 
+  | 'evidence_bot'
   | 'social_pusher'
+  | 'ministers_schools'
+  | 'mk_ultra'
+  | 'epstein_database'
   | 'chat_ai' 
   | 'cases' 
+  | 'network'
   | 'speech_check' 
   | 'whistleblower_guide';
 

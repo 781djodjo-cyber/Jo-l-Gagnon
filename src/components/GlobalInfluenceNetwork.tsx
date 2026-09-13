@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { Network, Info, Search, X, AlertOctagon } from 'lucide-react';
+import { Network, Info, Search, X, AlertOctagon, GitMerge, Clock, Sparkles } from 'lucide-react';
 import { InterestLink, InvestigationReport, SavedDossier } from '../types';
 import { PRELOADED_DOSSIERS } from '../data/preloadedDossiers';
 import { CorruptionTimeline } from './CorruptionTimeline';
+import { CorruptionMasterGraphView } from './CorruptionMasterGraphView';
 
 type RiskLevel = InterestLink['riskLevel'];
 
@@ -69,17 +70,21 @@ function curvedPath(x1: number, y1: number, x2: number, y2: number) {
 interface GlobalInfluenceNetworkProps {
   history: SavedDossier[];
   onOpenReport: (report: InvestigationReport) => void;
+  onOpenDossierById?: (id: string) => void;
+  onInvestigateQuery?: (query: string) => void;
 }
 
 export const GlobalInfluenceNetwork: React.FC<GlobalInfluenceNetworkProps> = ({
   history,
   onOpenReport,
+  onOpenDossierById,
+  onInvestigateQuery,
 }) => {
   const [activeNode, setActiveNode] = useState<string | null>(null);
   const [hoverEdge, setHoverEdge] = useState<number | null>(null);
   const [clusterFilter, setClusterFilter] = useState<string>('Tous');
   const [query, setQuery] = useState('');
-  const [viewMode, setViewMode] = useState<'network' | 'timeline'>('network');
+  const [viewMode, setViewMode] = useState<'nexus' | 'network' | 'timeline'>('nexus');
 
   // Every report we can map: the emblematic dossiers plus anything the
   // citizen has investigated this session.
@@ -350,10 +355,77 @@ export const GlobalInfluenceNetwork: React.FC<GlobalInfluenceNetworkProps> = ({
             <div className="text-[10px] font-bold uppercase tracking-wider text-rose-500/80 dark:text-rose-400/80">Liens critiques</div>
           </div>
         </div>
+
+        {/* Mode Switcher */}
+        <div className="flex flex-wrap items-center gap-2 mt-5 pt-4 border-t border-stone-100 dark:border-stone-800">
+          <button
+            type="button"
+            onClick={() => setViewMode('nexus')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
+              viewMode === 'nexus'
+                ? 'bg-blue-600 text-white shadow-md ring-2 ring-blue-500/40'
+                : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+            }`}
+          >
+            <Sparkles className="w-4 h-4 text-amber-300" />
+            <span>Grand Graphique de la Corruption (Pôles & Preuves)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setViewMode('network')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              viewMode === 'network'
+                ? 'bg-blue-600 text-white shadow-md ring-2 ring-blue-500/40'
+                : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+            }`}
+          >
+            <GitMerge className="w-4 h-4" />
+            <span>Graphe Détaillé par Acteurs</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setViewMode('timeline')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              viewMode === 'timeline'
+                ? 'bg-blue-600 text-white shadow-md ring-2 ring-blue-500/40'
+                : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+            }`}
+          >
+            <Clock className="w-4 h-4" />
+            <span>Chronologie des Scandales (1995-2026)</span>
+          </button>
+        </div>
       </div>
 
-      {/* Controls */}
-      <div className="flex flex-col gap-4">
+      {/* VIEW MODE 1: MASTER NEXUS GRAPH */}
+      {viewMode === 'nexus' && (
+        <CorruptionMasterGraphView
+          onOpenDossier={(id) => {
+            if (onOpenDossierById) {
+              onOpenDossierById(id);
+            } else {
+              const d = PRELOADED_DOSSIERS.find(x => x.id === id);
+              if (d) onOpenReport(d.report);
+            }
+          }}
+          onInvestigateQuery={(q) => {
+            if (onInvestigateQuery) onInvestigateQuery(q);
+          }}
+        />
+      )}
+
+      {/* VIEW MODE 2: TIMELINE */}
+      {viewMode === 'timeline' && (
+        <CorruptionTimeline onOpenReport={onOpenReport} />
+      )}
+
+      {/* VIEW MODE 3: DETAILED ACTOR NETWORK */}
+      {viewMode === 'network' && (
+        <>
+          {/* Controls */}
+          <div className="flex flex-col gap-4">
         {/* Search */}
         <div className="relative">
           <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none" />
@@ -594,6 +666,8 @@ export const GlobalInfluenceNetwork: React.FC<GlobalInfluenceNetworkProps> = ({
           )}
         </div>
       </div>
+        </>
+      )}
     </div>
   );
 };

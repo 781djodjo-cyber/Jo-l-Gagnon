@@ -9,7 +9,7 @@ export interface PreloadedDossier {
   report: InvestigationReport;
 }
 
-export const PRELOADED_DOSSIERS: PreloadedDossier[] = [
+const RAW_PRELOADED_DOSSIERS: PreloadedDossier[] = [
   {
     id: 'saaqclic-it-contracts',
     title: 'Fiasco SAAQclic & Contrats Informatiques',
@@ -1127,6 +1127,342 @@ export const PRELOADED_DOSSIERS: PreloadedDossier[] = [
         'Publications de l\'Éditeur officiel du Québec'
       ]
     }
+  },
+  {
+    id: 'dpj-fugues-traite-exploitation',
+    title: 'Dossier National : Fugues Massives, Exploitation Sexuelle & Dérives de Garde DPJ',
+    subtitle: 'Plus de 10 000 fugues annuelles, recrutement par les gangs de rue, motels de transit et faillite de la LPJ',
+    category: 'Services aux Enfants & Familles',
+    tag: 'Observatoire Fugues • 10 000+ Cas/an',
+    report: {
+      subject: 'Fugues récurrentes des centres jeunesse, proxénétisme juvénile, recrutement par les gangs de rue (Laval, Montréal, Québec) et défaillances de garde étatique sous la LPJ',
+      alertLevel: 'INFRACTION_AVÉRÉE',
+      alertLevelLabel: 'Urgence Nationale & Négligence Systémique de Garde Étatique',
+      integrityScore: 12,
+      executiveSummary: 'Chaque année au Québec, plus de 10 000 signalements de fugues d\'enfants et d\'adolescents sont enregistrés dans les centres de réadaptation et foyers de la DPJ. Loin de simples « escapades d\'adolescence », ces fugues révèlent un réseau d\'exploitation systémique où des mineures sous ordonnance de garde étatique sont captées dès les abords des foyers par des réseaux criminels de traite de personnes (Laval, Montréal-Nord, Québec). Le recours illégal aux chambres de motels sans surveillance clinique et les délais policiers de signalement aggravent dramatiquement le danger.',
+      coreFinding: 'Une rupture caractérisée de l\'obligation de protection et de garde étatique (parens patriae) : l\'État québécois confie des mineurs vulnérables à des installations ouvertes non sécurisées et à des motels commerciaux gardés par des agents privés non qualifiés, livrant de fait des centaines d\'adolescentes aux proxénètes sans intervention policière immédiate.',
+      verifiedFacts: [
+        'Plus de 10 400 fugues enregistrées annuellement dans le réseau de la protection de la jeunesse du Québec (rapports annuels des directeurs de la protection de la jeunesse).',
+        'Scandale des « Filles de Laval » (foyers Hubert-Perron et Chomedey) : des centaines de fugues coordonnées où des adolescentes ont été séquestrées et prostituées par des gangs de rue.',
+        'La Commission Laurent (Chapitre 8) a conclu que les protocoles de signalement de fugue étaient chroniquement déficients et que les jeunes étaient souvent injustement qualifiés de « fugueurs volontaires » au lieu de victimes de traite criminelle.',
+        'Rapport spécial du Protecteur du citoyen (2023-2024) : dénonciation du placement d\'enfants dans plus de 1 100 chambres de motel d\'urgence sous la garde d\'agents de sécurité privés, provoquant des vagues immédiates de fugues et d\'overdoses.',
+        'Décisions judiciaires répétées de la Chambre de la jeunesse et de la Cour supérieure blâmant les CISSS et CIUSSS pour manquement à la sécurité fondamentale des enfants confiés à leur garde.'
+      ],
+      interestLinks: [
+        {
+          actorFrom: 'Directions des CISSS/CIUSSS & MSSS',
+          actorTo: 'Réseaux de motels commerciaux d\'urgence et agences de gardiennage privé',
+          relationship: 'Dépense de dizaines de millions de dollars en hébergements d\'urgence non agréés contournant le manque de foyers de groupe et de familles d\'accueil',
+          riskLevel: 'Critique',
+          legalStatus: 'Violation flagrante de l\'article 44 de la LPJ et des normes d\'agrément clinique'
+        },
+        {
+          actorFrom: 'Foyers de groupe ouverts et centres de réadaptation',
+          actorTo: 'Corps policiers locaux (SPVM, SQ, SPL, SPVQ)',
+          relationship: 'Délais critiques de plusieurs heures à plusieurs jours avant le signalement officiel de la disparition d\'un mineur aux registres policiers CIPC',
+          riskLevel: 'Critique',
+          legalStatus: 'Manquement déontologique et atteinte au droit fondamental à la sécurité (art. 1 de la Charte québécoise)'
+        }
+      ],
+      assemblyNationalEvents: [
+        {
+          topic: 'Débats d\'urgence au Salon bleu sur les fugues de Laval et l\'exploitation sexuelle des mineures (2019-2024)',
+          context: 'Salon bleu de l\'Assemblée nationale du Québec',
+          quoteOrSummary: 'Les députés de l\'opposition ont sommé le ministre délégué aux Services sociaux d\'interdire sur-le-champ les motels de transit et de doter les policiers de pouvoirs d\'intervention immédiats pour protéger les fugueuses.',
+          dateOrSession: '42e et 43e législatures du Québec'
+        },
+        {
+          topic: 'Commission spéciale sur les droits des enfants et la protection de la jeunesse (Commission Laurent)',
+          context: 'Auditions publiques nationales',
+          quoteOrSummary: 'Témoignages bouleversants d\'anciennes pensionnaires et d\'éducateurs décrivant comment des rabatteurs de proxénètes attendent les adolescentes à la sortie même des pavillons de la DPJ.',
+          dateOrSession: 'Rapport déposé en mai 2021'
+        }
+      ],
+      officialReportsAndJudgments: [
+        'Rapport de la Commission spéciale sur les droits des enfants (Commission Laurent), Chapitre 8 : « L\'exploitation sexuelle et les fugues » (2021)',
+        'Rapport d\'enquête du Protecteur du citoyen : « Placements de fortune : quand l\'urgence sacrifie l\'enfance » (2023)',
+        'Rapports annuels des directeurs de la protection de la jeunesse (Bilan des directeurs DPJ 2020-2025)',
+        'Jugements de la Cour du Québec, Chambre de la jeunesse (Districts de Laval, Montréal, Québec et Saint-Hyacinthe)'
+      ],
+      journalisticInvestigations: [
+        'Enquête de Radio-Canada / La Facture : « Enfants de la DPJ dans les motels : un scandale d\'État »',
+        'Série documentaire et enquêtes de La Presse et Le Journal de Montréal sur les réseaux de proxénétisme ciblant les fugueuses de Laval et Montréal',
+        'Reportages d\'investigation de TVA Nouvelles (J.E.) sur l\'errance des jeunes en fugue et les failles de localisation GPS'
+      ],
+      criticalVulnerabilities: [
+        'Délai systématique dans la transmission de la fiche de disparition au CIPC (Centre d\'information de la police canadienne)',
+        'Manque de protocole clinique d\'interception dans les 3 heures critiques suivant la sortie d\'un mineur',
+        'Contournement de l\'obligation de placement dans un milieu de vie substitutif agréé (art. 44 LPJ) par le recours aux motels',
+        'Absence d\'accompagnement psychologique spécialisé au retour de fugue, souvent remplacé par un isolement punitif'
+      ],
+      legalRecourses: [
+        {
+          body: 'Chambre de la jeunesse de la Cour du Québec',
+          procedure: 'Requête urgente en révision des mesures ou ordonnance de sauvegarde pour défaut de garde sécuritaire (art. 95 LPJ).',
+          applicableLaw: 'Loi sur la protection de la jeunesse (art. 4, 38, 44, 95 LPJ)',
+          whistleblowerProtection: 'Droit du parent et de l\'enfant d\'être représentés par un avocat distinct payé par l\'aide juridique'
+        },
+        {
+          body: 'Protecteur du citoyen & Commission des droits de la jeunesse (CDPDJ)',
+          procedure: 'Dépôt d\'une plainte urgente pour lésion de droit caractérisée, mise en danger de la vie d\'un mineur et défaillance de garde.',
+          applicableLaw: 'Charte des droits et libertés de la personne (art. 1 et 39) et Loi sur la CDPDJ',
+          whistleblowerProtection: 'Pouvoir d\'enquête d\'office avec immunité des témoins et protection contre les représailles'
+        },
+        {
+          body: 'Escouade intégrée de lutte contre le proxénétisme (EILP) & SPVM / SQ',
+          procedure: 'Dénonciation criminelle pour traite de personnes de moins de 18 ans et proxénétisme aggravé.',
+          applicableLaw: 'Code criminel du Canada (L.R.C. (1985), ch. C-46, art. 279.011, 279.02, 286.1)',
+          whistleblowerProtection: 'Protection des victimes de traite et ordonnances de non-publication immédiates'
+        }
+      ],
+      impactOnCitizensAndChildren: 'Les milliers de fugues d\'enfants sous la garde de l\'État détruisent des vies et exposent des générations d\'adolescentes à des traumatismes irréversibles et à des réseaux d\'exploitation criminelle. Chaque jeune qui fuit un centre jeunesse est la démonstration vivante d\'une rupture de confiance entre la jeunesse québécoise et l\'institution qui a le devoir sacré de la protéger.',
+      sourcesGrounding: [
+        'Rapports annuels provinciaux des directeurs de la protection de la jeunesse (2018-2025)',
+        'Commission Laurent (2021), Chapitre 8 : L\'exploitation sexuelle et les fugues',
+        'Enquêtes du Protecteur du citoyen et de la CDPDJ (2020-2024)',
+        'Code criminel du Canada et Loi sur la protection de la jeunesse (RLRQ c. P-34.1)'
+      ]
+    }
+  },
+  {
+    id: 'reseau-epstein-elites-quebec',
+    title: 'Réseau Epstein : Ramifications, Carnets d\'Adresses & Connexions au Québec',
+    subtitle: 'Registres de vol à Montréal (YUL/YMX), agences de mannequins rabatteuses (Brunel), carnets saisis et vérifications des élites québécoises',
+    category: 'Commissions d\'Enquête & Élites',
+    tag: 'Documents Décachetés SDNY • Registres FAA',
+    report: {
+      subject: 'Jeffrey Epstein, Ghislaine Maxwell, Jean-Luc Brunel (MC2 Model Management), registres de vols vers Montréal (YUL/YMX), carnet d\'adresses saisi par le FBI (« Black Book »), mentions de personnalités québécoises et tentatives de pénétration philanthropique',
+      alertLevel: 'ZONE_GRISE_DÉONTOLOGIQUE',
+      alertLevelLabel: 'Faits Judiciaires Établis & Enquêtes Transfrontalières Rigoureuses',
+      integrityScore: 22,
+      executiveSummary: 'À la suite du décachetage par le tribunal fédéral de New York (SDNY - Juge Loretta Preska) de milliers de pages d\'actes de procédure dans l\'affaire Giuffre c. Maxwell, ainsi que de l\'analyse des registres officiels de vol de la FAA et du carnet d\'adresses saisi par le FBI, plusieurs ramifications directes et indirectes avec le Québec et Montréal ont été mises en lumière. Ce dossier dresse la cartographie factuelle rigoureuse : escales documentées d\'avions privés à Montréal, rabattage d\'aspirantes mannequins québécoises par le bras droit Jean-Luc Brunel (MC2), présence de personnalités d\'affaires montréalaises dans les carnets mondains, et vérifications institutionnelles.',
+      coreFinding: 'Une séparation déontologique absolue s\'impose entre : 1) Les crimes fédéraux de trafic sexuel et de viols sur mineures formellement condamnés visant Epstein, Maxwell et Brunel ; 2) Les activités prédatrices de recrutement dans l\'industrie du mannequinat à Montréal ; et 3) La simple mention de coordonnées dans un carnet mondain saisi qui n\'implique aucune faute criminelle sans preuve d\'implication directe.',
+      verifiedFacts: [
+        'Registres officiels de la FAA et carnets de bord des pilotes Visoski et Rodgers : Le Gulfstream II et le Boeing 727 d\'Epstein (immatriculés N908JE et N212JE) ont atterri à plusieurs reprises aux aéroports de Montréal (Dorval YUL et Mirabel YMX) entre 1998 et 2005.',
+        'La filière Jean-Luc Brunel & agence MC2 à Montréal : Brunel, associé d\'Epstein inculpé pour viols sur mineures et traite d\'êtres humains avant son décès en cellule à Paris en 2022, a dirigé Karin Models puis fondé MC2 (financée par Epstein). Des enquêtes journalistiques (Radio-Canada Enquête) ont révélé que des agences québécoises ont vu plusieurs jeunes modèles approchées pour des castings à New York, Paris et Miami.',
+        'Présence au carnet d\'adresses saisi par le FBI (« Black Book ») : Les coordonnées de figures montréalaises notables, dont Guy Laliberté (fondateur du Cirque du Soleil) et des bureaux liés à la famille Bronfman (Claridge), y figuraient. Lors de la déclassification en janvier 2024, les représentants de Guy Laliberté ont confirmé des rencontres purement mondaines et caritatives internationales, sans qu\'aucune plainte ni allégation criminelle n\'ait jamais été portée contre lui.',
+        'Affaire NXIVM et ramifications montréalaises : Les héritières montréalaises Clare et Sara Bronfman ont financé à coups de dizaines de millions de dollars la secte de trafic sexuel NXIVM de Keith Raniere, menant à la condamnation de Clare Bronfman à 6 ans et 9 mois de prison par la même cour fédérale de New York (SDNY).',
+        'Vérifications auprès des universités québécoises : Epstein a massivement financé des chercheurs à Harvard et au MIT pour soigner sa réputation. Au Québec, l\'Université McGill et les fonds de recherche provinciaux ont confirmé aux médias qu\'aucun don financier n\'avait été accepté de ses fondations (Enhanced Education Foundation / COUQ Foundation).'
+      ],
+      interestLinks: [
+        {
+          actorFrom: 'Jean-Luc Brunel (Karin Models / MC2)',
+          actorTo: 'Agences de mannequins et milieu de la mode à Montréal',
+          relationship: 'Prospection et recrutement d\'adolescentes québécoises sous couvert de contrats de haute couture à l\'international',
+          riskLevel: 'Critique',
+          legalStatus: 'Objet d\'enquêtes criminelles internationales du Parquet de Paris et du FBI'
+        },
+        {
+          actorFrom: 'Jeffrey Epstein & Ghislaine Maxwell',
+          actorTo: 'Personnalités québécoises du grand mécénat et des affaires',
+          relationship: 'Collecte de contacts mondains, invitations à des galas caritatifs internationaux et inscriptions dans l\'annuaire privé',
+          riskLevel: 'Modéré',
+          legalStatus: 'Contacts répertoriés au dossier SDNY sans accusation ni preuve de complicité pour les citoyens québécois'
+        },
+        {
+          actorFrom: 'Réseau de transit aérien privé (avions N908JE / N212JE)',
+          actorTo: 'Terminaux privés d\'aéroports québécois (Dorval / Mirabel)',
+          relationship: 'Escales et ravitaillements documentés dans les registres de navigation aérienne civile',
+          riskLevel: 'Critique',
+          legalStatus: 'Pièces d\'archives produites devant le tribunal fédéral de New York'
+        }
+      ],
+      assemblyNationalEvents: [
+        {
+          topic: 'Débats sur la protection des mineures dans l\'industrie du mannequinat au Québec (2020-2024)',
+          context: 'Salon bleu et commissions de l\'Assemblée nationale du Québec',
+          quoteOrSummary: 'Interpellations sur la régulation des agences artistiques et de mannequins pour interdire le rabattage sans consentement parental et imposer des permis stricts contre l\'exploitation.',
+          dateOrSession: '42e et 43e législatures du Québec'
+        },
+        {
+          topic: 'Dépôt des documents décachetés de la Cour de New York (Janvier 2024)',
+          context: 'Couverture médiatique et réactions politiques québécoises',
+          quoteOrSummary: 'Clarification publique par les médias d\'enquête québécois des mentions de noms de personnalités dans le carnet d\'adresses d\'Epstein, rappelant la présomption d\'innocence.',
+          dateOrSession: 'Session parlementaire hiver 2024'
+        }
+      ],
+      officialReportsAndJudgments: [
+        'Dossier judiciaire décacheté SDNY : Giuffre v. Maxwell, Affaire n° 15-cv-07433-LAP (Cour fédérale du district sud de New York, Juge Loretta Preska, 2024)',
+        'Actes d\'inculpation du Département de la Justice des États-Unis (DOJ) contre Jeffrey Epstein (2019) et Ghislaine Maxwell (2020)',
+        'Dossier d\'instruction criminelle du Parquet de Paris contre Jean-Luc Brunel (2020-2022)',
+        'Registres officiels de vol certifiés de la Federal Aviation Administration (FAA) et carnets de bord de David Rodgers'
+      ],
+      journalisticInvestigations: [
+        'Enquête spéciale de Radio-Canada : « Dans les filets de Jean-Luc Brunel : les mannequins québécoises face au prédateur »',
+        'Série d\'investigation de La Presse (Vincent Larouche) sur les escales montréalaises du jet d\'Epstein et les documents décachetés de New York',
+        'Enquête du Miami Herald (Julie K. Brown) : « Perversion of Justice » révélant les réseaux de rabattage internationaux',
+        'Reportages de TVA Nouvelles et du Bureau d\'enquête sur les ramifications de l\'affaire NXIVM des soeurs Bronfman'
+      ],
+      criticalVulnerabilities: [
+        'Absence d\'encadrement déontologique et législatif strict des agences de mannequins au Québec recrutant des mineures',
+        'Opacité des terminaux aéroportuaires privés (FBO) pour les vols corporatifs internationaux de jets privés',
+        'Utilisation de la philanthropie et des galas caritatifs comme paravent de respectabilité mondaine pour infiltrer les élites'
+      ],
+      legalRecourses: [
+        {
+          body: 'Gendarmerie royale du Canada (GRC) - Division des crimes contre la personne',
+          procedure: 'Dénonciation pour traite de personnes transfrontalière et infractions sexuelles commises à l\'étranger (art. 7(4.1) et 279.01 C.cr.).',
+          applicableLaw: 'Code criminel du Canada & Loi sur l\'extradition',
+          whistleblowerProtection: 'Protection des témoins et programme national d\'aide aux victimes d\'actes criminels'
+        },
+        {
+          body: 'Cour supérieure du Québec - Recours civils pour préjudice corporel et sexuel',
+          procedure: 'Action civile en dommages-intérêts imprescriptible pour agressions à caractère sexuel subies par des victimes québécoises.',
+          applicableLaw: 'Code civil du Québec (art. 2926.1 - Imprescriptibilité des recours en matière d\'agression sexuelle)',
+          whistleblowerProtection: 'Ordonnances d\'anonymat et de non-divulgation automatique'
+        },
+        {
+          body: 'Office de la protection du consommateur & Ministère du Travail',
+          procedure: 'Vérification de conformité des agences de recrutement et interdiction des contrats léonins imposés aux jeunes modèles.',
+          applicableLaw: 'Loi sur la protection du consommateur et Loi sur les normes du travail (RLRQ c. N-1.1)',
+          whistleblowerProtection: 'Immunité des plaignants contre toute rétorsion contractuelle'
+        }
+      ],
+      impactOnCitizensAndChildren: 'Ce dossier rappelle que la prédation sexuelle de haut niveau ne s\'arrête pas aux frontières et cherche toujours à exploiter les aspirations des jeunes filles dans le milieu de la mode et de la culture. L\'intégrité exige de nommer les faits établis, de protéger sans relâche les victimes, tout en refusant l\'amalgame simpliste entre ceux qui ont commis ou facilité des crimes et ceux dont le nom n\'apparaissait que dans un répertoire de contacts mondains.',
+      sourcesGrounding: [
+        'Pièces judiciaires décachetées du tribunal fédéral de New York (SDNY)',
+        'Registres certifiés de vol de la Federal Aviation Administration (FAA)',
+        'Enquêtes journalistiques de Radio-Canada, La Presse et Miami Herald',
+        'Code criminel du Canada (art. 279.01 et 7(4.1))'
+      ]
+    }
+  },
+  {
+    id: 'mk-ultra-allan-memorial-mcgill',
+    title: 'Projet MK-Ultra (Sous-projet 68) : Expérimentations Cérébrales à l\'Allan Memorial (McGill)',
+    subtitle: 'Cobayes humains, lavage de cerveau, financement secret CIA & subventions fédérales du Canada',
+    category: 'Commissions d\'Enquête & Élites',
+    tag: 'Sous-projet 68 CIA • Allan Memorial (McGill)',
+    report: {
+      id: 'inv-mk-ultra-allan-memorial',
+      timestamp: Date.now(),
+      subject: 'Projet MK-Ultra : Le Sous-Projet 68 à l\'Institut Allan Memorial (McGill)',
+      alertLevel: 'INFRACTION_AVÉRÉE',
+      alertLevelLabel: 'Faits Historiques Déclassifiés & Responsabilités Établies',
+      integrityScore: 0,
+      executiveSummary: 'Dossier documentaire officiel sur le Sous-projet 68 de MK-Ultra mené à Montréal entre 1957 et 1964. Sous la direction du Dr Donald Ewen Cameron (président de l\'Association mondiale de psychiatrie) et avec l\'autorisation financière secrète de la CIA et des subventions du ministère de la Santé nationale du Canada, des centaines de patients ont subi des tortures médicales expérimentales sans consentement : déstructuration (électrochocs 30 à 40 fois supérieurs à la norme), comas médicamenteux continus jusqu\'à 65 jours sous LSD et barbituriques, et conduite psychique (messages enregistrés répétés 500 000 fois).',
+      coreFinding: 'Violation absolue du serment d\'Hippocrate et des droits fondamentaux de citoyens canadiens et québécois, confirmée par les auditions du Sénat américain (1977), le Rapport Cooper d\'Ottawa (1986), les indemnités ex gratia fédérales (1992) et les recours collectifs pendants devant la Cour supérieure du Québec.',
+      verifiedFacts: [
+        'Sous-projet 68 de la CIA : Financement secret de 60 000 $ US canalisé par la Society for the Investigation of Human Ecology vers l\'Allan Memorial de McGill.',
+        'Subventions fédérales canadiennes : Versement de plus de 500 000 $ par le ministère fédéral de la Santé et du Bien-être social au Dr Cameron.',
+        'Protocole de déstructuration (Depatterning) : Électrochocs convulsifs intensifs répétés jusqu\'à 3 fois par jour pour effacer complètement la mémoire et la personnalité des patients.',
+        'Protocole de conduite psychique (Psychic Driving) : Écoute continue jour et nuit au casque de bandes magnétiques négatives puis positives répétées jusqu\'à 500 000 fois.',
+        'Aveux officiels au Sénat américain (1977) : Témoignage de l\'amiral Stansfield Turner (directeur de la CIA) confirmant les expérimentations montréalaises.',
+        'Décret fédéral C.P. 1992-2342 : Indemnité de 100 000 $ versée par Ottawa à 77 victimes ayant subi une déstructuration complète.',
+        'Recours collectif en Cour supérieure du Québec : Poursuite active contre l\'Hôpital Royal Victoria, McGill et le Procureur général du Canada pour les victimes exclues et leurs familles.'
+      ],
+      interestLinks: [
+        {
+          actorFrom: 'Central Intelligence Agency (CIA - Technical Services Staff)',
+          actorTo: 'Dr. Donald Ewen Cameron (Allan Memorial / Université McGill)',
+          relationship: 'Financement occulte via la Society for the Investigation of Human Ecology pour tester le contrôle mental',
+          riskLevel: 'Critique',
+          legalStatus: 'Sous-projet 68 déclassifié sous le FOIA (Freedom of Information Act)'
+        },
+        {
+          actorFrom: 'Ministère de la Santé nationale et du Bien-être social du Canada',
+          actorTo: 'Département de psychiatrie de l\'Université McGill',
+          relationship: 'Attribution de subventions de recherche publique sans aucun contrôle éthique des cobayes humains',
+          riskLevel: 'Critique',
+          legalStatus: 'Rapport George Cooper (1986) déposé au Parlement fédéral'
+        },
+        {
+          actorFrom: 'Université McGill & Hôpital Royal Victoria (CIUSSS)',
+          actorTo: 'Victimes et descendants québécois',
+          relationship: 'Refus institutionnel persistant de présenter des excuses officielles et rétention d\'archives médicales',
+          riskLevel: 'Critique',
+          legalStatus: 'Dossier d\'action collective en Cour supérieure du Québec (500-06-000854-191)'
+        }
+      ],
+      assemblyNationalEvents: [
+        {
+          topic: 'Revendications pour la levée du secret des archives médicales de l\'Allan Memorial',
+          context: 'Débats à l\'Assemblée nationale du Québec et à la Chambre des communes',
+          quoteOrSummary: 'Interventions répétées de députés québécois demandant la déclassification complète des dossiers médicaux détenus par le CIUSSS de l\'Ouest-de-l\'Île-de-Montréal et la reconnaissance des préjudices subis par les familles.'
+        }
+      ],
+      officialReportsAndJudgments: [
+        'U.S. Senate Select Committee on Intelligence (Church Committee Hearings, 1977)',
+        'Rapport de Me George Cooper, c.r. au ministre de la Justice du Canada (1986)',
+        'Décret du Conseil privé du Canada C.P. 1992-2342 (Règlement ex gratia de 100 000 $)',
+        'Jugement Orlikow et al. v. United States, 685 F. Supp. 1199 (D.D.C. 1988)',
+        'Cour supérieure du Québec : Dossier d\'action collective n° 500-06-000854-191'
+      ],
+      journalisticInvestigations: [
+        'Émission Enquête (Radio-Canada) : « Les cobayes oubliés de MK-Ultra à Montréal »',
+        'The Fifth Estate (CBC) : « The Sleep Room » et « MK-Ultra: The CIA\'s Mind Control Program »',
+        'Livre de John Marks : « The Search for the Manchurian Candidate: The CIA and Mind Control »'
+      ],
+      criticalVulnerabilities: [
+        'Absence historique de comité d\'éthique indépendant pour les patients psychiatriques',
+        'Impunité médicale et opacité des subventions de recherche transfrontalières'
+      ],
+      legalRecourses: [
+        {
+          body: 'Cour supérieure du Québec - Chambre des actions collectives',
+          procedure: 'Demande d\'autorisation d\'action collective pour préjudice corporel et moral intergénérationnel.',
+          applicableLaw: 'Code de procédure civile du Québec & Charte des droits et libertés de la personne',
+          whistleblowerProtection: 'Protection des membres du groupe et ordonnances de scellé protecteur'
+        },
+        {
+          body: 'Commission d\'accès à l\'information du Québec (CAI)',
+          procedure: 'Demande d\'accès aux dossiers médicaux complets des défunts auprès du CIUSSS de l\'Ouest-de-l\'Île-de-Montréal.',
+          applicableLaw: 'Loi sur l\'accès aux documents des organismes publics et sur la protection des renseignements personnels (RLRQ c. A-2.1)',
+          whistleblowerProtection: 'Droit d\'accès légal des héritiers et ayants droit'
+        }
+      ],
+      impactOnCitizensAndChildren: 'Les expérimentations de l\'Allan Memorial constituent la violation des droits humains la plus documentée de l\'histoire médicale moderne au Québec. Des mères de famille et de jeunes adultes ont vu leur mémoire et leur identité anéanties à jamais, infligeant des traumatismes psychologiques et affectifs dévastateurs à des générations entières d\'enfants québécois.',
+      sourcesGrounding: [
+        'Documents déclassifiés de la CIA (Freedom of Information Act - Project MKULTRA Subproject 68)',
+        'Rapport George Cooper commandé par le ministère de la Justice du Canada (1986)',
+        'Décret fédéral C.P. 1992-2342',
+        'Pièces déposées devant la Cour supérieure du Québec (Dossier 500-06-000854-191)'
+      ]
+    }
   }
 ];
+
+import { autoTriangulateReport } from '../services/crossDocumentMatrix';
+
+/**
+ * Collection officielle de dossiers enrichis et triangulés avec leurs documents complémentaires.
+ * Chaque dossier intègre les preuves croisées, jurisprudences et lois applicables.
+ */
+export const PRELOADED_DOSSIERS: PreloadedDossier[] = RAW_PRELOADED_DOSSIERS.map((dossier) => ({
+  ...dossier,
+  report: autoTriangulateReport(dossier.report, dossier.id)
+}));
+
+const DOSSIER_ALIASES: Record<string, string> = {
+  'dpj-commission-laurent-crise': 'protection-jeunesse-dpj-laurent',
+  'fillette-granby-coroner': 'protection-jeunesse-dpj-laurent',
+  'charbonneau-genie-conseil': 'charbonneau-collusion-upac',
+  'mckinsey-saaqclic': 'saaqclic-it-contracts',
+  'northvolt-filiere-batterie': 'northvolt-battery-transparency',
+  'laval-hubert-perron': 'dpj-fugues-traite-exploitation',
+  'fugues-dpj': 'dpj-fugues-traite-exploitation',
+  'dpj-fugues': 'dpj-fugues-traite-exploitation',
+  'epstein-quebec': 'reseau-epstein-elites-quebec',
+  'epstein': 'reseau-epstein-elites-quebec',
+  'reseau-epstein': 'reseau-epstein-elites-quebec',
+  'epstein-montreal': 'reseau-epstein-elites-quebec',
+  'brunel-montreal': 'reseau-epstein-elites-quebec',
+  'mk-ultra': 'mk-ultra-allan-memorial-mcgill',
+  'mkultra': 'mk-ultra-allan-memorial-mcgill',
+  'allan-memorial': 'mk-ultra-allan-memorial-mcgill',
+  'cameron': 'mk-ultra-allan-memorial-mcgill',
+  'cameron-mcgill': 'mk-ultra-allan-memorial-mcgill',
+  'sous-projet-68': 'mk-ultra-allan-memorial-mcgill'
+};
+
+export function getPreloadedDossierById(id: string): PreloadedDossier | undefined {
+  const direct = PRELOADED_DOSSIERS.find((d) => d.id === id);
+  if (direct) return direct;
+  const resolvedId = DOSSIER_ALIASES[id];
+  if (resolvedId) {
+    return PRELOADED_DOSSIERS.find((d) => d.id === resolvedId);
+  }
+  return undefined;
+}
+
 

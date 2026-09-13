@@ -22,22 +22,28 @@ import {
   HelpCircle,
   Radio
 } from 'lucide-react';
-import { InvestigationReport, InvestigationAlertLevel } from '../types';
+import { InvestigationReport, InvestigationAlertLevel, ViewTab } from '../types';
 import { InfluenceNetworkGraph } from './InfluenceNetworkGraph';
 import { ShareReportMenu } from './ShareReportMenu';
+import { ComplementaryDocumentsTruthMatrix } from './ComplementaryDocumentsTruthMatrix';
+import { autoTriangulateReport } from '../services/crossDocumentMatrix';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface InvestigationReportViewProps {
   report: InvestigationReport;
   onReset: () => void;
   onPushToSocialMedia?: (subject: string) => void;
+  onNavigateTab?: (tab: ViewTab, filter?: string) => void;
 }
 
 export const InvestigationReportView: React.FC<InvestigationReportViewProps> = ({
   report,
   onReset,
   onPushToSocialMedia,
+  onNavigateTab,
 }) => {
   const [copied, setCopied] = useState(false);
+  const triangulatedReport = autoTriangulateReport(report, report.id);
 
   const getAlertBadge = (level: InvestigationAlertLevel) => {
     switch (level) {
@@ -82,7 +88,7 @@ export const InvestigationReportView: React.FC<InvestigationReportViewProps> = (
 
   const alertBadge = getAlertBadge(report.alertLevel);
 
-  const handleCopyReport = () => {
+  const handleCopyReport = async () => {
     const text = `[RAPPORT OFFICIEL - TRANSPARENCE QUÉBEC]
 Dossier : ${report.subject}
 Statut : ${report.alertLevel} - ${report.alertLevelLabel}
@@ -114,9 +120,11 @@ ${report.legalRecourses.map((rec) => `- ${rec.body} (${rec.applicableLaw}) : ${r
 
 Document généré par Transparence Québec - Vigie de l'intégrité et de la démocratie.`;
 
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    const success = await safeCopyToClipboard(text);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
   };
 
   return (
@@ -277,6 +285,14 @@ Document généré par Transparence Québec - Vigie de l'intégrité et de la d�
           « {report.coreFinding} »
         </p>
       </div>
+
+      {/* Faisceau de Vérité : Documents Complémentaires Interconnectés */}
+      <ComplementaryDocumentsTruthMatrix
+        documents={triangulatedReport.complementaryDocuments}
+        truthIndex={triangulatedReport.truthVerificationIndex}
+        subjectTitle={triangulatedReport.subject}
+        onNavigateTab={onNavigateTab}
+      />
 
       {/* Influence Network Graph (Connect Matrix) */}
       {report.interestLinks?.length > 0 && (

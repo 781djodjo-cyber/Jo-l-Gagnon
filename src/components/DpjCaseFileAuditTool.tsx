@@ -38,6 +38,7 @@ import {
   getJurisprudencesForVulnerability,
   getJurisprudencesForArticle
 } from '../data/dpjJurisprudenceData';
+import { safeCopyToClipboard } from '../utils/clipboard';
 
 interface DpjCaseFileAuditToolProps {
   onOpenChatWithQuery?: (query: string) => void;
@@ -357,11 +358,13 @@ export const DpjCaseFileAuditTool: React.FC<DpjCaseFileAuditToolProps> = ({
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   type="button"
-                  onClick={() => {
+                  onClick={async () => {
                     const text = generateDefenseStrategyText();
-                    navigator.clipboard.writeText(text);
-                    setCopiedStrategy(true);
-                    setTimeout(() => setCopiedStrategy(false), 2500);
+                    const success = await safeCopyToClipboard(text);
+                    if (success) {
+                      setCopiedStrategy(true);
+                      setTimeout(() => setCopiedStrategy(false), 2500);
+                    }
                   }}
                   className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors cursor-pointer shadow-xs"
                 >
@@ -503,10 +506,12 @@ export const DpjCaseFileAuditTool: React.FC<DpjCaseFileAuditToolProps> = ({
                               <div className="flex items-center justify-end gap-2 pt-0.5">
                                 <button
                                   type="button"
-                                  onClick={() => {
-                                    navigator.clipboard.writeText(`${j.title} (${j.citation}) : ${j.keyJudgeQuote}`);
-                                    setCopiedJurisId(j.id);
-                                    setTimeout(() => setCopiedJurisId(null), 2000);
+                                  onClick={async () => {
+                                    const success = await safeCopyToClipboard(`${j.title} (${j.citation}) : ${j.keyJudgeQuote}`);
+                                    if (success) {
+                                      setCopiedJurisId(j.id);
+                                      setTimeout(() => setCopiedJurisId(null), 2000);
+                                    }
                                   }}
                                   className="text-[10px] font-bold text-stone-600 dark:text-stone-300 hover:text-emerald-600 flex items-center gap-1 cursor-pointer"
                                 >
@@ -794,10 +799,12 @@ export const DpjCaseFileAuditTool: React.FC<DpjCaseFileAuditToolProps> = ({
 
                 <button
                   type="button"
-                  onClick={() => {
-                    navigator.clipboard.writeText(getGeneratedPetitionText());
-                    setCopiedPetition(true);
-                    setTimeout(() => setCopiedPetition(false), 2500);
+                  onClick={async () => {
+                    const success = await safeCopyToClipboard(getGeneratedPetitionText());
+                    if (success) {
+                      setCopiedPetition(true);
+                      setTimeout(() => setCopiedPetition(false), 2500);
+                    }
                   }}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors cursor-pointer"
                 >
@@ -918,12 +925,14 @@ export const DpjCaseFileAuditTool: React.FC<DpjCaseFileAuditToolProps> = ({
 
                         <button
                           type="button"
-                          onClick={() => {
-                            navigator.clipboard.writeText(
+                          onClick={async () => {
+                            const success = await safeCopyToClipboard(
                               `[LPJ CODEX] ${selectedArticle.articleNumber} : ${selectedArticle.title}\nTexte : ${selectedArticle.fullLegalText}\nExplication : ${selectedArticle.plainLanguageExplanation}\nStratégie de défense : ${selectedArticle.defenseStrategy}`
                             );
-                            setCopiedArticleId(selectedArticle.id);
-                            setTimeout(() => setCopiedArticleId(null), 2500);
+                            if (success) {
+                              setCopiedArticleId(selectedArticle.id);
+                              setTimeout(() => setCopiedArticleId(null), 2500);
+                            }
                           }}
                           className="inline-flex items-center gap-1 text-xs text-stone-500 hover:text-emerald-600 cursor-pointer font-mono"
                         >
@@ -1162,12 +1171,14 @@ export const DpjCaseFileAuditTool: React.FC<DpjCaseFileAuditToolProps> = ({
                     </span>
                     <button
                       type="button"
-                      onClick={() => {
-                        navigator.clipboard.writeText(
+                      onClick={async () => {
+                        const success = await safeCopyToClipboard(
                           `${selectedJurisprudenceInAudit.title} (${selectedJurisprudenceInAudit.citation})`
                         );
-                        setCopiedJurisId('header');
-                        setTimeout(() => setCopiedJurisId(null), 2000);
+                        if (success) {
+                          setCopiedJurisId('header');
+                          setTimeout(() => setCopiedJurisId(null), 2000);
+                        }
                       }}
                       className="inline-flex items-center gap-1 text-xs font-bold text-stone-600 dark:text-stone-300 hover:text-emerald-600 cursor-pointer"
                     >
@@ -1223,12 +1234,14 @@ export const DpjCaseFileAuditTool: React.FC<DpjCaseFileAuditToolProps> = ({
                     </span>
                     <button
                       type="button"
-                      onClick={() => {
-                        navigator.clipboard.writeText(
+                      onClick={async () => {
+                        const success = await safeCopyToClipboard(
                           `${selectedJurisprudenceInAudit.title} (${selectedJurisprudenceInAudit.citation}) :\n« ${selectedJurisprudenceInAudit.keyJudgeQuote} »`
                         );
-                        setCopiedJurisId('quote');
-                        setTimeout(() => setCopiedJurisId(null), 2000);
+                        if (success) {
+                          setCopiedJurisId('quote');
+                          setTimeout(() => setCopiedJurisId(null), 2000);
+                        }
                       }}
                       className="text-[11px] font-bold text-amber-600 dark:text-amber-400 hover:underline cursor-pointer"
                     >
@@ -1258,10 +1271,12 @@ export const DpjCaseFileAuditTool: React.FC<DpjCaseFileAuditToolProps> = ({
                     </span>
                     <button
                       type="button"
-                      onClick={() => {
-                        navigator.clipboard.writeText(selectedJurisprudenceInAudit.pleadingExtract);
-                        setCopiedJurisId('pleading');
-                        setTimeout(() => setCopiedJurisId(null), 2000);
+                      onClick={async () => {
+                        const success = await safeCopyToClipboard(selectedJurisprudenceInAudit.pleadingExtract);
+                        if (success) {
+                          setCopiedJurisId('pleading');
+                          setTimeout(() => setCopiedJurisId(null), 2000);
+                        }
                       }}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 text-xs font-bold text-stone-800 dark:text-stone-200 cursor-pointer"
                     >
